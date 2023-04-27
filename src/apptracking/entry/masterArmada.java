@@ -9,6 +9,10 @@ package apptracking.entry;
 import apptracking.funct.functionCollection;
 import apptracking.funct.koneksi;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,6 +25,7 @@ public class masterArmada extends javax.swing.JPanel {
     private Connection conn= new koneksi().connect();
     private functionCollection funct=new functionCollection();
     private String idOld="";
+    private String jnsOld="";
 
     /**
      * Creates new form masterArmada
@@ -28,6 +33,14 @@ public class masterArmada extends javax.swing.JPanel {
     public masterArmada() {
         initComponents();
         funct.setMaxLength(txtTon,5);
+        funct.setMaxLength(txtDimensi1, 4);
+        funct.setMaxLength(txtDimensi2, 4);
+        funct.setMaxLength(txtDimensi3, 4);
+        
+        Object[] baris={"Type","Jenis","Kapasitas","Dimensi"};
+        tabArmada = new DefaultTableModel(null,baris);
+        
+        doLoadDataTable();
     }
 
     /**
@@ -56,7 +69,7 @@ public class masterArmada extends javax.swing.JPanel {
         btnSimpan = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblArmada = new javax.swing.JTable();
 
         jLabel1.setText("Type Kendaraan");
 
@@ -125,13 +138,23 @@ public class masterArmada extends javax.swing.JPanel {
             }
         });
 
-        lblSatuan.setText("cm");
+        lblSatuan.setText("CM");
 
         btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblArmada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -142,7 +165,12 @@ public class masterArmada extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblArmada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblArmadaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblArmada);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -255,6 +283,10 @@ public class masterArmada extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDimensi3KeyTyped
 
     private void cmbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTypeActionPerformed
+        doLoadComboItemType();
+    }//GEN-LAST:event_cmbTypeActionPerformed
+
+    private void doLoadComboItemType(){
         if(cmbType.getSelectedItem()!=null){
             cmbJenis.removeAllItems();
             String type=(String) cmbType.getSelectedItem().toString();
@@ -273,9 +305,249 @@ public class masterArmada extends javax.swing.JPanel {
                 cmbJenis.addItem("Container 40FT");
                 
             }
+            
+            if(type.toUpperCase().equalsIgnoreCase("KAPAL")){
+                lblDimensi.setVisible(false);
+                txtDimensi3.setVisible(false);
+                lblSatuan.setText("M");
+            }else{
+                lblDimensi.setVisible(true);
+                txtDimensi3.setVisible(true);
+                lblSatuan.setText("CM");
+            }
         }
-    }//GEN-LAST:event_cmbTypeActionPerformed
+    }
+    
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+       String msg="";
+        if(validation()){
+           if(idOld.equalsIgnoreCase("") && jnsOld.equalsIgnoreCase("")){
+               msg = "Simpan";
+           }else{
+               msg = "Edit";
+           }
+           int result = JOptionPane.showConfirmDialog(getParent(),"Yakin data akan di "+msg+" ?","Konfimasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+           if(result==JOptionPane.YES_OPTION){
+               if((idOld==null || idOld.equalsIgnoreCase("")) && (jnsOld.equalsIgnoreCase("") || jnsOld==null)){
+                    String type=cmbType.getSelectedItem().toString();
+                    String jenis=cmbJenis.getSelectedItem().toString();
+                    String kapasitas=txtTon.getText();
+                    String dimensi="";
+                    if(type.toUpperCase().equalsIgnoreCase("KAPAL")){
+                        dimensi = txtDimensi1.getText()+"x"+txtDimensi2.getText();
+                    }else{
+                        dimensi = txtDimensi1.getText()+"x"+txtDimensi2.getText()+"x"+txtDimensi3.getText();
+                    }
+                    try {
+                          String sqlInsert=" insert into mst_armada (type,jenis,kapasitas,dimensi,usrcrt,dtcrt) "
+                                  + "        values ('"+type+"' , '"+jenis+"', "+kapasitas+", '"+dimensi+"' , '"+"test"+"' , '"+funct.setDateToString(new Date())+"') ";
+                          Statement stat= conn.createStatement();
+                          stat.execute(sqlInsert);
+                          doLoadDataTable();
+                          doReset();
+                          //tidakAktif();
+                          JOptionPane.showMessageDialog(null, "Data berhasil di simpan.");
+                      } catch (Exception e) {
+                          System.out.println("Gagal Simpan Data Error "+e);
+                          JOptionPane.showMessageDialog(null, "Data gagal di simpan."+e);
+                      }
+               }else{
+                    String type=cmbType.getSelectedItem().toString().toUpperCase().equalsIgnoreCase("TRUK")?"01":
+                                cmbType.getSelectedItem().toString().toUpperCase().equalsIgnoreCase("KAPAL")?"03":"02";
+                    String jenis=cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("ENGKEL")?"0101":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("ENGKELDOUBLE")?"0102":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("TRONTON8METER")?"0102":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("TRONTON9,5METER")?"0103":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("FUSO6METER")?"0104":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("CONTAINER20FT")?"0201":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("CONTAINER40FT")?"0202":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("LCT1000DWT")?"0301":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("LCT1200DWT")?"0302":"0303";
+                    String kapasitas=txtTon.getText();
+                    String dimensi="";
+                    if(type.toUpperCase().equalsIgnoreCase("KAPAL")){
+                        dimensi = txtDimensi1.getText()+"x"+txtDimensi2.getText();
+                    }else{
+                        dimensi = txtDimensi1.getText()+"x"+txtDimensi2.getText()+"x"+txtDimensi3.getText();
+                    }
 
+                    try {
+                        String sqlUpdate=" update mst_armada set type = '"+type+"' ,"
+                                + "                          jenis = '"+jenis+"', "
+                                + "                          kapasitas = "+kapasitas+", "
+                                + "                          dimensi = '"+dimensi+"' "
+                                + "        where type = '"+idOld+"' and jenis = '"+jnsOld+"' ";
+                        Statement stat= conn.createStatement();
+                        stat.execute(sqlUpdate);
+                        doLoadDataTable();
+                        doReset();
+                        JOptionPane.showMessageDialog(null, "Data berhasil di edit.");
+                    } catch (Exception e) {
+                        System.out.println("Gagal Edit Data Error "+e);
+                        JOptionPane.showMessageDialog(null, "Data gagal di edit."+e);
+                    }
+               }
+           }else{
+               
+           }
+       }
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        if(idOld!=null && !idOld.equals("") && jnsOld!=null && !jnsOld.equals("")){
+            int result = JOptionPane.showConfirmDialog(getParent(),"Yakin data akan di hapus ?","Konfimasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(result==JOptionPane.YES_OPTION){
+                try {
+                    String sqlDelete=" delete from mst_armada where type = '"+idOld+"' and jenis='"+jnsOld+"' " ;
+                    Statement stat= conn.createStatement();
+                    stat.execute(sqlDelete);
+                    doLoadDataTable();
+                    doReset();
+                    //tidakAktif();
+                    JOptionPane.showMessageDialog(null, "Data berhasil di hapus.");
+                    //conn.close();
+                } catch (Exception e) {
+                    System.out.println("Gagal Hapus Data Error "+e);
+                    JOptionPane.showMessageDialog(null, "Data gagal di hapus."+e);
+                }
+            }
+        }
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void tblArmadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblArmadaMouseClicked
+        if(tabArmada.getColumnCount() > 0){
+          //aktif();
+          String[] rowData = new String[tabArmada.getColumnCount()];
+          for (int col = 0; col < tabArmada.getColumnCount(); col++) {
+              rowData[col] = String.valueOf(tabArmada.getValueAt(tblArmada.rowAtPoint(evt.getPoint()), col));
+          }
+          idOld = rowData[0];
+          cmbType.setSelectedItem(rowData[0]);
+          doLoadComboItemType();
+          cmbType.setSelectedItem(rowData[1]);
+          txtTon.setText(rowData[2]);
+          String[] dimensiSplt=rowData[3].split("x");
+          if(rowData[0].toUpperCase().equalsIgnoreCase("KAPAL")){
+              lblDimensi.setVisible(false);
+              lblSatuan.setText("M");
+              txtDimensi1.setText(dimensiSplt[0]);
+              txtDimensi2.setText(dimensiSplt[1]);
+          }else{
+              lblDimensi.setVisible(true);
+              lblSatuan.setText("CM");
+              txtDimensi1.setText(dimensiSplt[0]);
+              txtDimensi2.setText(dimensiSplt[1]);
+              txtDimensi3.setText(dimensiSplt[2]);
+          }
+          
+          btnSimpan.setLabel("Edit");
+          cmbType.requestFocus();
+       }
+    }//GEN-LAST:event_tblArmadaMouseClicked
+
+    protected boolean validation(){
+        boolean isValid=true;
+        if (isValid) {
+            if(cmbType.getSelectedItem()==null){
+                isValid=false;
+                JOptionPane.showMessageDialog(null,"Type Kendaraan tidak boleh kosong");
+                cmbType.requestFocus();
+            }else{
+               if(cmbType.getSelectedIndex()<0){
+                   isValid=false;
+                   JOptionPane.showMessageDialog(null,"Type Kendaraan tidak boleh kosong");
+                   cmbType.requestFocus();
+               }else{
+                   if(cmbType.getSelectedItem().toString().toUpperCase().equalsIgnoreCase("KAPAL")){
+                       if(txtDimensi1.getText()==null){
+                           isValid=false;
+                           JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                           txtDimensi1.requestFocus();
+                       }else{
+                           if(txtDimensi1.getText().equalsIgnoreCase("")){
+                               isValid=false;
+                               JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                               txtDimensi1.requestFocus();
+                            }
+                       }
+                       
+                       if(txtDimensi2.getText()==null){
+                           isValid=false;
+                           JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                           txtDimensi2.requestFocus();
+                       }else{
+                           if(txtDimensi2.getText().equalsIgnoreCase("")){
+                               isValid=false;
+                               JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                               txtDimensi2.requestFocus();
+                            }
+                       }
+                   }else{
+                       if(txtDimensi1.getText()==null){
+                           isValid=false;
+                           JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                           txtDimensi1.requestFocus();
+                       }else{
+                           if(txtDimensi1.getText().equalsIgnoreCase("")){
+                               isValid=false;
+                               JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                               txtDimensi1.requestFocus();
+                            }
+                       }
+                       
+                       if(txtDimensi2.getText()==null){
+                           isValid=false;
+                           JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                           txtDimensi2.requestFocus();
+                       }else{
+                           if(txtDimensi2.getText().equalsIgnoreCase("")){
+                               isValid=false;
+                               JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                               txtDimensi2.requestFocus();
+                            }
+                       }
+                       
+                       if(txtDimensi3.getText()==null){
+                           isValid=false;
+                           JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                           txtDimensi3.requestFocus();
+                       }else{
+                           if(txtDimensi3.getText().equalsIgnoreCase("")){
+                               isValid=false;
+                               JOptionPane.showMessageDialog(null,"Dimensi tidak boleh kosong");
+                               txtDimensi3.requestFocus();
+                            }
+                       }
+                   }
+               }
+            }
+            
+            if(cmbJenis.getSelectedItem()==null){
+                isValid=false;
+                JOptionPane.showMessageDialog(null,"Jenis Kendaraan tidak boleh kosong");
+                cmbJenis.requestFocus();
+            }else{
+                if(cmbJenis.getSelectedIndex()<0){
+                    isValid=false;
+                    JOptionPane.showMessageDialog(null,"Jenis Kendaraan tidak boleh kosong");
+                    cmbJenis.requestFocus();
+                }
+            }
+            
+            if(txtTon.getText()==null){
+                isValid=false;
+                JOptionPane.showMessageDialog(null,"Kapasitas tidak boleh kosong");
+                txtTon.requestFocus();
+            }else{
+                if(txtTon.getText().equalsIgnoreCase("")){
+                    isValid=false;
+                    JOptionPane.showMessageDialog(null,"Kapasitas tidak boleh kosong");
+                    txtTon.requestFocus();
+                }
+            }
+        }
+        return isValid;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHapus;
@@ -289,12 +561,49 @@ public class masterArmada extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDimensi;
     private javax.swing.JLabel lblSatuan;
+    private javax.swing.JTable tblArmada;
     private javax.swing.JTextField txtDimensi1;
     private javax.swing.JTextField txtDimensi2;
     private javax.swing.JTextField txtDimensi3;
     private javax.swing.JTextField txtTon;
     // End of variables declaration//GEN-END:variables
+
+    private void doLoadDataTable() {
+        tblArmada.revalidate();
+        tblArmada.repaint();
+        tblArmada.setModel(tabArmada);
+        if(tabArmada.getRowCount()>0){
+            tabArmada.setRowCount(0);  
+        }
+        String sql = "select * from mst_armada";
+        try {
+            Statement stat= conn.createStatement();
+            ResultSet hasil=stat.executeQuery(sql);
+
+            while (hasil.next()) {
+                String type=hasil.getString("type");
+                String jenis=hasil.getString("jenis");
+
+                String [] data={type,jenis};
+                tabArmada.addRow(data);
+            }
+        } catch (Exception e) {
+            System.out.println("Menampilkan Data Error "+e);
+        }  
+    }
+
+    private void doReset() {
+        idOld="";
+        jnsOld="";
+        btnSimpan.setLabel("Simpan");
+        cmbType.setSelectedIndex(0);
+        cmbJenis.setSelectedIndex(0);
+        txtTon.setText("");
+        txtDimensi1.setText("");
+        txtDimensi2.setText("");
+        txtDimensi3.setText("");
+        cmbType.requestFocus();
+    }
 }

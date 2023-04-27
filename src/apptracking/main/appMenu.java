@@ -6,6 +6,7 @@
 
 package apptracking.main;
 
+import apptracking.entry.masterArmada;
 import apptracking.entry.masterRole;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -20,15 +21,19 @@ public class appMenu extends javax.swing.JFrame {
 
     BorderLayout layout=new BorderLayout();
     masterRole mstRole;
+    masterArmada mstArmada;
     /**
      * Creates new form appMenu
      */
     public appMenu() {
         initComponents();
         mstRole=new masterRole();
+        mstArmada=new masterArmada();
         jPMain.setLayout(layout);
         jPMain.add(mstRole,BorderLayout.WEST);
+        jPMain.add(mstArmada,BorderLayout.WEST);
         mstRole.setVisible(false);
+        mstArmada.setVisible(false);
     }
 
     /**
@@ -42,9 +47,9 @@ public class appMenu extends javax.swing.JFrame {
 
         jPMenu = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblRole = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblArmada = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPMain = new javax.swing.JPanel();
 
@@ -53,12 +58,12 @@ public class appMenu extends javax.swing.JFrame {
 
         jPMenu.setBackground(new java.awt.Color(102, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Master Role");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblRole.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblRole.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblRole.setText("Master Role");
+        lblRole.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                lblRoleMouseClicked(evt);
             }
         });
 
@@ -66,23 +71,23 @@ public class appMenu extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+            .addComponent(lblRole, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(lblRole)
                 .addContainerGap())
         );
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Master Armada");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblArmada.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblArmada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblArmada.setText("Master Armada");
+        lblArmada.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblArmada.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                lblArmadaMouseClicked(evt);
             }
         });
 
@@ -91,14 +96,14 @@ public class appMenu extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblArmada, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(lblArmada)
                 .addContainerGap())
         );
 
@@ -155,13 +160,23 @@ public class appMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       mstRole.setVisible(true);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    private void lblRoleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRoleMouseClicked
+        jPMain.add(mstRole,BorderLayout.WEST);
+        if(mstArmada.getParent()!=null){
+            jPMain.remove(mstArmada.getParent());
+            mstArmada.setVisible(false);
+        }
+        mstRole.setVisible(true);
+    }//GEN-LAST:event_lblRoleMouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel2MouseClicked
+    private void lblArmadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArmadaMouseClicked
+        jPMain.add(mstArmada,BorderLayout.WEST);
+        if(mstRole.getParent()!=null){
+            jPMain.remove(mstRole.getParent());
+            mstRole.setVisible(false);
+        }
+        mstArmada.setVisible(true);
+    }//GEN-LAST:event_lblArmadaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -199,13 +214,13 @@ public class appMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPMain;
     private javax.swing.JPanel jPMenu;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblArmada;
+    private javax.swing.JLabel lblRole;
     // End of variables declaration//GEN-END:variables
 
 }
