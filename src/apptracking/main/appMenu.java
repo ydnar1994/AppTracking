@@ -9,6 +9,7 @@ package apptracking.main;
 import apptracking.entry.masterArmada;
 import apptracking.entry.masterRole;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
@@ -46,9 +47,9 @@ public class appMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPMenu = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jPRole = new javax.swing.JPanel();
         lblRole = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jPArmada = new javax.swing.JPanel();
         lblArmada = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPMain = new javax.swing.JPanel();
@@ -67,15 +68,15 @@ public class appMenu extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPRoleLayout = new javax.swing.GroupLayout(jPRole);
+        jPRole.setLayout(jPRoleLayout);
+        jPRoleLayout.setHorizontalGroup(
+            jPRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblRole, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        jPRoleLayout.setVerticalGroup(
+            jPRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPRoleLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblRole)
                 .addContainerGap())
@@ -91,17 +92,17 @@ public class appMenu extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPArmadaLayout = new javax.swing.GroupLayout(jPArmada);
+        jPArmada.setLayout(jPArmadaLayout);
+        jPArmadaLayout.setHorizontalGroup(
+            jPArmadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPArmadaLayout.createSequentialGroup()
                 .addComponent(lblArmada, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        jPArmadaLayout.setVerticalGroup(
+            jPArmadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPArmadaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblArmada)
                 .addContainerGap())
@@ -114,8 +115,8 @@ public class appMenu extends javax.swing.JFrame {
             .addGroup(jPMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPArmada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -124,9 +125,9 @@ public class appMenu extends javax.swing.JFrame {
             jPMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPMenuLayout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPArmada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -166,6 +167,8 @@ public class appMenu extends javax.swing.JFrame {
             jPMain.remove(mstArmada.getParent());
             mstArmada.setVisible(false);
         }
+        jPRole.setBackground(Color.red);
+        jPArmada.setBackground(Color.GRAY);
         mstRole.setVisible(true);
     }//GEN-LAST:event_lblRoleMouseClicked
 
@@ -175,6 +178,8 @@ public class appMenu extends javax.swing.JFrame {
             jPMain.remove(mstRole.getParent());
             mstRole.setVisible(false);
         }
+        jPRole.setBackground(Color.GRAY);
+        jPArmada.setBackground(Color.RED);
         mstArmada.setVisible(true);
     }//GEN-LAST:event_lblArmadaMouseClicked
 
@@ -214,10 +219,10 @@ public class appMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPArmada;
     private javax.swing.JPanel jPMain;
     private javax.swing.JPanel jPMenu;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPRole;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblArmada;
     private javax.swing.JLabel lblRole;

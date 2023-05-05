@@ -329,8 +329,17 @@ public class masterArmada extends javax.swing.JPanel {
            int result = JOptionPane.showConfirmDialog(getParent(),"Yakin data akan di "+msg+" ?","Konfimasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
            if(result==JOptionPane.YES_OPTION){
                if((idOld==null || idOld.equalsIgnoreCase("")) && (jnsOld.equalsIgnoreCase("") || jnsOld==null)){
-                    String type=cmbType.getSelectedItem().toString();
-                    String jenis=cmbJenis.getSelectedItem().toString();
+                    String type=cmbType.getSelectedItem().toString().toUpperCase().equalsIgnoreCase("TRUK")?"01":
+                                cmbType.getSelectedItem().toString().toUpperCase().equalsIgnoreCase("KAPAL")?"03":"02";
+                    String jenis=cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("ENGKEL")?"0101":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("ENGKELDOUBLE")?"0102":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("TRONTON8METER")?"0103":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("TRONTON9,5METER")?"0104":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("FUSO6METER")?"0105":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("CONTAINER20FT")?"0201":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("CONTAINER40FT")?"0202":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("LCT1000DWT")?"0301":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("LCT1200DWT")?"0302":"0303";
                     String kapasitas=txtTon.getText();
                     String dimensi="";
                     if(type.toUpperCase().equalsIgnoreCase("KAPAL")){
@@ -354,23 +363,27 @@ public class masterArmada extends javax.swing.JPanel {
                }else{
                     String type=cmbType.getSelectedItem().toString().toUpperCase().equalsIgnoreCase("TRUK")?"01":
                                 cmbType.getSelectedItem().toString().toUpperCase().equalsIgnoreCase("KAPAL")?"03":"02";
-                    String jenis=cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("ENGKEL")?"0101":
-                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("ENGKELDOUBLE")?"0102":
-                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("TRONTON8METER")?"0102":
-                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("TRONTON9,5METER")?"0103":
-                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("FUSO6METER")?"0104":
-                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("CONTAINER20FT")?"0201":
-                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("CONTAINER40FT")?"0202":
-                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("LCT1000DWT")?"0301":
-                                 cmbJenis.getSelectedItem().toString().toUpperCase().trim().equalsIgnoreCase("LCT1200DWT")?"0302":"0303";
+                    String jenis=cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("ENGKEL")?"0101":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("ENGKELDOUBLE")?"0102":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("TRONTON8METER")?"0103":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("TRONTON9,5METER")?"0104":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("FUSO6METER")?"0105":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("CONTAINER20FT")?"0201":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("CONTAINER40FT")?"0202":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("LCT1000DWT")?"0301":
+                                 cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ","").equalsIgnoreCase("LCT1200DWT")?"0302":"0303";
                     String kapasitas=txtTon.getText();
                     String dimensi="";
-                    if(type.toUpperCase().equalsIgnoreCase("KAPAL")){
+                    if(type.toUpperCase().equalsIgnoreCase("03")){
                         dimensi = txtDimensi1.getText()+"x"+txtDimensi2.getText();
                     }else{
                         dimensi = txtDimensi1.getText()+"x"+txtDimensi2.getText()+"x"+txtDimensi3.getText();
                     }
-
+                    System.out.println("Combo :"+cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ",""));
+                    System.out.println("type New "+type);
+                    System.out.println("Jenis New "+jenis);
+                    System.out.println("type OLD "+idOld);
+                    System.out.println("Jenis OLD "+jnsOld);
                     try {
                         String sqlUpdate=" update mst_armada set type = '"+type+"' ,"
                                 + "                          jenis = '"+jenis+"', "
@@ -421,10 +434,20 @@ public class masterArmada extends javax.swing.JPanel {
           for (int col = 0; col < tabArmada.getColumnCount(); col++) {
               rowData[col] = String.valueOf(tabArmada.getValueAt(tblArmada.rowAtPoint(evt.getPoint()), col));
           }
-          idOld = rowData[0];
+          idOld = rowData[0].toUpperCase().equalsIgnoreCase("TRUK")?"01":
+                  rowData[0].toUpperCase().equalsIgnoreCase("KAPAL")?"03":"02";
           cmbType.setSelectedItem(rowData[0]);
           doLoadComboItemType();
-          cmbType.setSelectedItem(rowData[1]);
+          jnsOld = rowData[1].toUpperCase().replaceAll(" ","").equalsIgnoreCase("ENGKEL")?"0101":
+                   rowData[1].toUpperCase().replaceAll(" ","").equalsIgnoreCase("ENGKELDOUBLE")?"0102":
+                   rowData[1].toUpperCase().replaceAll(" ","").equalsIgnoreCase("TRONTON8METER")?"0103":
+                   rowData[1].toUpperCase().replaceAll(" ","").equalsIgnoreCase("TRONTON9,5METER")?"0104":
+                   rowData[1].toUpperCase().replaceAll(" ","").equalsIgnoreCase("FUSO6METER")?"0105":
+                   rowData[1].toUpperCase().replaceAll(" ","").equalsIgnoreCase("CONTAINER20FT")?"0201":
+                   rowData[1].toUpperCase().replaceAll(" ","").equalsIgnoreCase("CONTAINER40FT")?"0202":
+                   rowData[1].toUpperCase().replaceAll(" ","").equalsIgnoreCase("LCT1000DWT")?"0301":
+                   rowData[1].toUpperCase().replaceAll(" ","").equalsIgnoreCase("LCT1200DWT")?"0302":"0303";
+          cmbJenis.setSelectedItem(rowData[1]);
           txtTon.setText(rowData[2]);
           String[] dimensiSplt=rowData[3].split("x");
           if(rowData[0].toUpperCase().equalsIgnoreCase("KAPAL")){
@@ -583,10 +606,20 @@ public class masterArmada extends javax.swing.JPanel {
             ResultSet hasil=stat.executeQuery(sql);
 
             while (hasil.next()) {
-                String type=hasil.getString("type");
-                String jenis=hasil.getString("jenis");
-
-                String [] data={type,jenis};
+                String type=hasil.getString("type").equalsIgnoreCase("01")?"Truk":
+                            hasil.getString("type").equalsIgnoreCase("03")?"Kapal":"Container";
+                String jenis=hasil.getString("jenis").equalsIgnoreCase("0101")?"Engkel":
+                                 hasil.getString("jenis").equalsIgnoreCase("0102")?"Engkel Double":
+                                 hasil.getString("jenis").equalsIgnoreCase("0103")?"Tronton 8 Meter":
+                                 hasil.getString("jenis").equalsIgnoreCase("0104")?"Tronton 9,5 Meter":
+                                 hasil.getString("jenis").equalsIgnoreCase("0105")?"Fuso 6 Meter":
+                                 hasil.getString("jenis").equalsIgnoreCase("0201")?"Container 20FT":
+                                 hasil.getString("jenis").equalsIgnoreCase("0202")?"Container 40FT":
+                                 hasil.getString("jenis").equalsIgnoreCase("0301")?"LCT 1000 DWT":
+                                 hasil.getString("jenis").equalsIgnoreCase("0302")?"LCT 1200 DWT":"LCT 1500 DWT";
+                String kapasitas=hasil.getString("kapasitas");
+                String dimensi=hasil.getString("dimensi");
+                String [] data={type,jenis,kapasitas,dimensi};
                 tabArmada.addRow(data);
             }
         } catch (Exception e) {
