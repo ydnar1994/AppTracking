@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package apptracking.main;
 
 import apptracking.entry.masterArmada;
 import apptracking.entry.masterRole;
+import apptracking.entry.masterHarga;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -20,21 +20,26 @@ import java.awt.LayoutManager;
  */
 public class appMenu extends javax.swing.JFrame {
 
-    BorderLayout layout=new BorderLayout();
+    BorderLayout layout = new BorderLayout();
     masterRole mstRole;
     masterArmada mstArmada;
+    masterHarga mstHarga;
+
     /**
      * Creates new form appMenu
      */
     public appMenu() {
         initComponents();
-        mstRole=new masterRole();
-        mstArmada=new masterArmada();
+        mstRole = new masterRole();
+        mstArmada = new masterArmada();
+        mstHarga=new masterHarga();
         jPMain.setLayout(layout);
-        jPMain.add(mstRole,BorderLayout.WEST);
-        jPMain.add(mstArmada,BorderLayout.WEST);
+        jPMain.add(mstRole, BorderLayout.WEST);
+        jPMain.add(mstArmada, BorderLayout.WEST);
+        jPMain.add(mstHarga, BorderLayout.WEST);
         mstRole.setVisible(false);
         mstArmada.setVisible(false);
+        mstHarga.setVisible(false);
     }
 
     /**
@@ -52,10 +57,17 @@ public class appMenu extends javax.swing.JFrame {
         jPArmada = new javax.swing.JPanel();
         lblArmada = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jPHarga = new javax.swing.JPanel();
+        lblHarga = new javax.swing.JLabel();
         jPMain = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPMenu.setBackground(new java.awt.Color(102, 255, 255));
 
@@ -72,7 +84,7 @@ public class appMenu extends javax.swing.JFrame {
         jPRole.setLayout(jPRoleLayout);
         jPRoleLayout.setHorizontalGroup(
             jPRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblRole, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+            .addComponent(lblRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPRoleLayout.setVerticalGroup(
             jPRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,14 +109,40 @@ public class appMenu extends javax.swing.JFrame {
         jPArmadaLayout.setHorizontalGroup(
             jPArmadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPArmadaLayout.createSequentialGroup()
-                .addComponent(lblArmada, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(lblArmada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPArmadaLayout.setVerticalGroup(
             jPArmadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPArmadaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPArmadaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(lblArmada)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblHarga.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblHarga.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHarga.setText("Master Harga");
+        lblHarga.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblHarga.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHargaMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPHargaLayout = new javax.swing.GroupLayout(jPHarga);
+        jPHarga.setLayout(jPHargaLayout);
+        jPHargaLayout.setHorizontalGroup(
+            jPHargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPHargaLayout.createSequentialGroup()
+                .addComponent(lblHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPHargaLayout.setVerticalGroup(
+            jPHargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPHargaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblHarga)
                 .addContainerGap())
         );
 
@@ -114,10 +152,11 @@ public class appMenu extends javax.swing.JFrame {
             jPMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPArmada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPArmada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -128,6 +167,8 @@ public class appMenu extends javax.swing.JFrame {
                 .addComponent(jPRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPArmada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -136,7 +177,7 @@ public class appMenu extends javax.swing.JFrame {
         jPMain.setLayout(jPMainLayout);
         jPMainLayout.setHorizontalGroup(
             jPMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 655, Short.MAX_VALUE)
+            .addGap(0, 643, Short.MAX_VALUE)
         );
         jPMainLayout.setVerticalGroup(
             jPMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,26 +203,59 @@ public class appMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblRoleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRoleMouseClicked
-        jPMain.add(mstRole,BorderLayout.WEST);
-        if(mstArmada.getParent()!=null){
+        jPMain.add(mstRole, BorderLayout.WEST);
+        if (mstArmada.getParent() != null) {
             jPMain.remove(mstArmada.getParent());
             mstArmada.setVisible(false);
         }
+        if (mstHarga.getParent() != null) {
+            jPMain.remove(mstHarga.getParent());
+            mstHarga.setVisible(false);
+        }
         jPRole.setBackground(Color.red);
         jPArmada.setBackground(Color.GRAY);
+        jPHarga.setBackground(Color.GRAY);
         mstRole.setVisible(true);
     }//GEN-LAST:event_lblRoleMouseClicked
 
     private void lblArmadaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArmadaMouseClicked
-        jPMain.add(mstArmada,BorderLayout.WEST);
-        if(mstRole.getParent()!=null){
+        jPMain.add(mstArmada, BorderLayout.WEST);
+        if (mstRole.getParent() != null) {
             jPMain.remove(mstRole.getParent());
             mstRole.setVisible(false);
         }
+        if (mstHarga.getParent() != null) {
+            jPMain.remove(mstHarga.getParent());
+            mstHarga.setVisible(false);
+        }
         jPRole.setBackground(Color.GRAY);
         jPArmada.setBackground(Color.RED);
+        jPHarga.setBackground(Color.GRAY);
         mstArmada.setVisible(true);
     }//GEN-LAST:event_lblArmadaMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        setExtendedState(appMenu.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void lblHargaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHargaMouseClicked
+        // TODO add your handling code here:
+         jPMain.add(mstHarga, BorderLayout.WEST);
+        if (mstRole.getParent() != null) {
+            jPMain.remove(mstRole.getParent());
+            mstRole.setVisible(false);
+        }
+        if (mstArmada.getParent() != null) {
+            jPMain.remove(mstArmada.getParent());
+            mstArmada.setVisible(false);
+        }
+        jPRole.setBackground(Color.GRAY);
+        jPArmada.setBackground(Color.GRAY);
+        jPHarga.setBackground(Color.RED);
+        mstHarga.setVisible(true);
+
+    }//GEN-LAST:event_lblHargaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -220,11 +294,13 @@ public class appMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPArmada;
+    private javax.swing.JPanel jPHarga;
     private javax.swing.JPanel jPMain;
     private javax.swing.JPanel jPMenu;
     private javax.swing.JPanel jPRole;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblArmada;
+    private javax.swing.JLabel lblHarga;
     private javax.swing.JLabel lblRole;
     // End of variables declaration//GEN-END:variables
 
