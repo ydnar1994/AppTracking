@@ -57,6 +57,7 @@ public class masterRole extends javax.swing.JPanel {
         tblRole = new javax.swing.JTable();
         btnSimpan = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
+        btnUlang = new javax.swing.JButton();
 
         jLabel1.setText("Role Id");
 
@@ -94,6 +95,13 @@ public class masterRole extends javax.swing.JPanel {
             }
         });
 
+        btnUlang.setText("Ulang");
+        btnUlang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUlangActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,7 +121,9 @@ public class masterRole extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUlang, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(134, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -130,7 +140,8 @@ public class masterRole extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan)
-                    .addComponent(btnHapus))
+                    .addComponent(btnHapus)
+                    .addComponent(btnUlang))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -224,6 +235,10 @@ public class masterRole extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
+    private void btnUlangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUlangActionPerformed
+        doReset();
+    }//GEN-LAST:event_btnUlangActionPerformed
+
     protected boolean validation(){
         boolean isValid=true;
         if (isValid) {
@@ -258,6 +273,7 @@ public class masterRole extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnHapus;
     public javax.swing.JButton btnSimpan;
+    public javax.swing.JButton btnUlang;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     public javax.swing.JScrollPane jScrollPane1;

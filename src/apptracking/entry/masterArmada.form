@@ -57,6 +57,8 @@
                       <Component id="btnSimpan" min="-2" pref="75" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnHapus" min="-2" pref="75" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnHapus1" min="-2" pref="75" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -97,6 +99,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSimpan" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="btnHapus" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="btnHapus1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="102" max="-2" attributes="0"/>
@@ -236,5 +239,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="btnHapus1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ulang"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHapus1ActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
