@@ -179,7 +179,7 @@ public class masterRole extends javax.swing.JPanel {
           txtRoleId.setText(rowData[0]);
           txtRoleNm.setText(rowData[1]);
           
-          btnSimpan.setLabel("Edit");
+          btnSimpan.setLabel("Ubah");
           txtRoleId.requestFocus();
        }
     }//GEN-LAST:event_tblRoleMouseClicked
@@ -190,7 +190,7 @@ public class masterRole extends javax.swing.JPanel {
            if(idOld.equalsIgnoreCase("")){
                msg = "Simpan";
            }else{
-               msg = "Edit";
+               msg = "Ubah";
            }
            int result = JOptionPane.showConfirmDialog(getParent(),"Yakin data akan di "+msg+" ?","Konfimasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
            if(result==JOptionPane.YES_OPTION){
@@ -223,10 +223,10 @@ public class masterRole extends javax.swing.JPanel {
                         stat.execute(sqlUpdate);
                         doLoadDataTable();
                         doReset();
-                        JOptionPane.showMessageDialog(null, "Data berhasil di edit.");
+                        JOptionPane.showMessageDialog(null, "Data berhasil di Ubah.");
                     } catch (Exception e) {
-                        System.out.println("Gagal Edit Data Error "+e);
-                        JOptionPane.showMessageDialog(null, "Data gagal di edit."+e);
+                        System.out.println("Gagal Ubah Data Error "+e);
+                        JOptionPane.showMessageDialog(null, "Data gagal di Ubah."+e);
                     }
                }
            }else{

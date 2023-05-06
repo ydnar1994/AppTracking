@@ -66,7 +66,7 @@ public class masterHarga extends javax.swing.JPanel {
         txtDTD = new javax.swing.JTextField();
         btnUlang = new javax.swing.JButton();
 
-        jLabel1.setText("Type Kendaraan");
+        jLabel1.setText("Tipe Kendaraan");
 
         cmbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Truk", "Container", "Kapal" }));
         cmbType.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +287,7 @@ public class masterHarga extends javax.swing.JPanel {
             if (idOld.equalsIgnoreCase("") && jnsOld.equalsIgnoreCase("") && tujOld.equalsIgnoreCase("")) {
                 msg = "Simpan";
             } else {
-                msg = "Edit";
+                msg = "Ubah";
             }
             int result = JOptionPane.showConfirmDialog(getParent(), "Yakin data akan di " + msg + " ?", "Konfimasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (result == JOptionPane.YES_OPTION) {
@@ -357,10 +357,10 @@ public class masterHarga extends javax.swing.JPanel {
                         stat.execute(sqlUpdate);
                         doLoadDataTable();
                         doReset();
-                        JOptionPane.showMessageDialog(null, "Data berhasil di edit.");
+                        JOptionPane.showMessageDialog(null, "Data berhasil di Ubah.");
                     } catch (Exception e) {
-                        System.out.println("Gagal Edit Data Error " + e);
-                        JOptionPane.showMessageDialog(null, "Data gagal di edit." + e);
+                        System.out.println("Gagal Ubah Data Error " + e);
+                        JOptionPane.showMessageDialog(null, "Data gagal di Ubah." + e);
                     }
                 }
             } else {
@@ -417,7 +417,7 @@ public class masterHarga extends javax.swing.JPanel {
             txtDTP.setText(rowData[4]);
             txtDTD.setText(rowData[5]);
 
-            btnSimpan.setLabel("Edit");
+            btnSimpan.setLabel("Ubah");
             cmbType.requestFocus();
         }
     }//GEN-LAST:event_tblArmadaMouseClicked
