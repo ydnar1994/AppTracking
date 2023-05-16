@@ -266,13 +266,17 @@ public class mainMenu extends javax.swing.JFrame {
     private void execute() {
         ImageIcon iconHome = new ImageIcon(getClass().getResource("/image/home.png"));
         ImageIcon iconMaster = new ImageIcon(getClass().getResource("/image/master.png"));
-        ImageIcon iconmasHarga = new ImageIcon(getClass().getResource("/image/ticket.png"));
+        ImageIcon iconmasHarga = new ImageIcon(getClass().getResource("/image/pricetags.png"));
         ImageIcon iconmasArmada = new ImageIcon(getClass().getResource("/image/boat.png"));
         ImageIcon iconTransaksi = new ImageIcon(getClass().getResource("/image/transaksi.png"));
         ImageIcon iconSetting = new ImageIcon(getClass().getResource("/image/setting.png"));
         ImageIcon iconUser = new ImageIcon(getClass().getResource("/image/person.png"));
         ImageIcon iconLaporan = new ImageIcon(getClass().getResource("/image/report.png"));
-//
+        ImageIcon iconInvoice = new ImageIcon(getClass().getResource("/image/invoice.png"));
+        ImageIcon iconPengiriman = new ImageIcon(getClass().getResource("/image/packet.png"));
+
+//      MENU DATA
+        itemMenu masKaryawan = new itemMenu(null, true, iconUser, "Data Karyawan", null);
         itemMenu masArmada = new itemMenu(null, true, iconmasArmada, "Data Armada", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -307,25 +311,8 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
 
-        itemMenu menuUser = new itemMenu(null, true, iconUser, "Pengguna", null);
-        itemMenu menuRole = new itemMenu(null, true, iconUser, "Jenis Pengguna", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jPMain.add(mstRole, BorderLayout.WEST);
-                if (mstArmada.getParent() != null) {
-                    jPMain.remove(mstArmada.getParent());
-                    mstArmada.setVisible(false);
-                }
-                if (mstHarga.getParent() != null) {
-                    jPMain.remove(mstHarga.getParent());
-                    mstHarga.setVisible(false);
-                }
-
-                mstRole.setVisible(true);
-            }
-        });
-
-//        menu item laporan
+//      MENU LAPORAN
+        itemMenu lapKaryawan = new itemMenu(null, true, iconLaporan, "Data Karyawan", null);
         itemMenu laptarifKapal = new itemMenu(null, true, iconLaporan, "Tarif Pengiriman Kapal", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -345,14 +332,37 @@ public class mainMenu extends javax.swing.JFrame {
                 }
             }
         });
-        
-          itemMenu laptarifLCL = new itemMenu(null, true, iconLaporan, "Tarif Pengiriman LCL", null);
 
-        
+        itemMenu laptarifLCL = new itemMenu(null, true, iconLaporan, "Tarif Pengiriman LCL", null);
+        itemMenu lapPengiriman = new itemMenu(null, true, iconLaporan, "Transaksi Pengiriman", null);
+
+//      MENU TRANSAKSI 
+        itemMenu mnuPengiriman = new itemMenu(null, true, iconPengiriman, "Pengiriman", null);
+        itemMenu mnuInvoice = new itemMenu(null, true, iconInvoice, "Fatkur Pelanggan", null);
+
+        // MENU PENGATURAN
+        itemMenu menuUser = new itemMenu(null, true, iconUser, "Pengguna", null);
+        itemMenu menuRole = new itemMenu(null, true, iconUser, "Jenis Pengguna", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jPMain.add(mstRole, BorderLayout.WEST);
+                if (mstArmada.getParent() != null) {
+                    jPMain.remove(mstArmada.getParent());
+                    mstArmada.setVisible(false);
+                }
+                if (mstHarga.getParent() != null) {
+                    jPMain.remove(mstHarga.getParent());
+                    mstHarga.setVisible(false);
+                }
+
+                mstRole.setVisible(true);
+            }
+        });
+
         itemMenu menuHome = new itemMenu(iconHome, false, null, "Beranda", null);
-        itemMenu menuMaster = new itemMenu(iconMaster, false, null, "Data", null, masArmada, masHarga);
-        itemMenu menuTransaksi = new itemMenu(iconTransaksi, false, null, "Transaksi", null);
-        itemMenu menuLaporan = new itemMenu(iconLaporan, false, null, "Laporan", null,laptarifKapal,laptarifLCL);
+        itemMenu menuMaster = new itemMenu(iconMaster, false, null, "Data", null, masKaryawan, masArmada, masHarga);
+        itemMenu menuTransaksi = new itemMenu(iconTransaksi, false, null, "Transaksi", null, mnuPengiriman, mnuInvoice);
+        itemMenu menuLaporan = new itemMenu(iconLaporan, false, null, "Laporan", null, lapKaryawan, laptarifKapal, laptarifLCL,lapPengiriman);
         itemMenu menuSetting = new itemMenu(iconSetting, false, null, "Pengaturan", null, menuUser, menuRole);
 
         addMenu(menuHome, menuMaster, menuTransaksi, menuLaporan, menuSetting);
