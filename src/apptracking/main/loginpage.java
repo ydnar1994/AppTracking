@@ -123,7 +123,7 @@ public class loginpage extends javax.swing.JFrame {
                 bcloseMouseEntered(evt);
             }
         });
-        getContentPane().add(bclose, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 10, 50, 50));
+        getContentPane().add(bclose, new org.netbeans.lib.awtextra.AbsoluteConstraints(1227, 0, -1, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/loginpage.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -144,7 +144,7 @@ public class loginpage extends javax.swing.JFrame {
                 if (txtpass.getText().equals(result.getString("password"))){
                     //new menuUtama().show();
                     JOptionPane.showMessageDialog(rootPane, "Selamat Datang  "+txtuserid.getText());
-                    appMenu mn = new appMenu();
+                    mainMenu mn = new mainMenu();
                     mn.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     mn.setVisible(true);
                     this.dispose();

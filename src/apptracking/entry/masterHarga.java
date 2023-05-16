@@ -66,6 +66,8 @@ public class masterHarga extends javax.swing.JPanel {
         txtDTD = new javax.swing.JTextField();
         btnUlang = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setText("Tipe Kendaraan");
 
         cmbType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Truk", "Container", "Kapal" }));
