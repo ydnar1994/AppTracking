@@ -70,6 +70,7 @@ public class mainMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         pn_navbar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lbl_logout = new javax.swing.JLabel();
         pn_sidebar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pn_menus = new javax.swing.JPanel();
@@ -98,6 +99,13 @@ public class mainMenu extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconjdx.png"))); // NOI18N
 
+        lbl_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logout.png"))); // NOI18N
+        lbl_logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_logoutMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pn_navbarLayout = new javax.swing.GroupLayout(pn_navbar);
         pn_navbar.setLayout(pn_navbarLayout);
         pn_navbarLayout.setHorizontalGroup(
@@ -105,14 +113,20 @@ public class mainMenu extends javax.swing.JFrame {
             .addGroup(pn_navbarLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(648, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(lbl_logout)
+                .addContainerGap(570, Short.MAX_VALUE))
         );
         pn_navbarLayout.setVerticalGroup(
             pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_navbarLayout.createSequentialGroup()
+            .addGroup(pn_navbarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(pn_navbarLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lbl_logout)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         getContentPane().add(pn_navbar, java.awt.BorderLayout.PAGE_START);
@@ -128,7 +142,7 @@ public class mainMenu extends javax.swing.JFrame {
 
         pn_menus.setBackground(new java.awt.Color(255, 255, 255));
         pn_menus.setForeground(new java.awt.Color(255, 255, 255));
-        pn_menus.setPreferredSize(new java.awt.Dimension(240, 372));
+        pn_menus.setPreferredSize(new java.awt.Dimension(230, 350));
         pn_menus.setLayout(new javax.swing.BoxLayout(pn_menus, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(pn_menus);
 
@@ -140,7 +154,7 @@ public class mainMenu extends javax.swing.JFrame {
         );
         pn_sidebarLayout.setVerticalGroup(
             pn_sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
         );
 
         getContentPane().add(pn_sidebar, java.awt.BorderLayout.LINE_START);
@@ -213,6 +227,21 @@ public class mainMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lbl_logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_logoutMouseClicked
+        // TODO add your handling code here:
+        String ObjButton[] = {"YES", "NO"};
+        int pilihan = JOptionPane.showOptionDialog(null, "Apakah Anda yakin ingin keluar?", "Message", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, ObjButton, ObjButton[1]);
+        if (pilihan == 0) {
+            loginpage mn = new loginpage();
+            mn.setVisible(true);
+            this.dispose();
+            pn_menus.revalidate();
+
+        }
+
+    }//GEN-LAST:event_lbl_logoutMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -258,6 +287,7 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_iconuser;
+    private javax.swing.JLabel lbl_logout;
     private javax.swing.JPanel pn_menus;
     private javax.swing.JPanel pn_navbar;
     private javax.swing.JPanel pn_sidebar;
@@ -324,8 +354,12 @@ public class mainMenu extends javax.swing.JFrame {
                     File report_file = new File(namaFile);
                     JasperReport jasperReport = (JasperReport) JRLoader.loadObject(report_file.getPath());
                     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
-                    JasperViewer.viewReport(jasperPrint, false);
-                    JasperViewer.setDefaultLookAndFeelDecorated(true);
+                    //JasperViewer.viewReport(jasperPrint, false);
+                    // JasperViewer.setDefaultLookAndFeelDecorated(true);
+
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setExtendedState(jasperViewer.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+                    jasperViewer.setVisible(true);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(null, "Gagal membuka Laporan", "Cetak laporan", JOptionPane.ERROR_MESSAGE);
 
@@ -362,7 +396,7 @@ public class mainMenu extends javax.swing.JFrame {
         itemMenu menuHome = new itemMenu(iconHome, false, null, "Beranda", null);
         itemMenu menuMaster = new itemMenu(iconMaster, false, null, "Data", null, masKaryawan, masArmada, masHarga);
         itemMenu menuTransaksi = new itemMenu(iconTransaksi, false, null, "Transaksi", null, mnuPengiriman, mnuInvoice);
-        itemMenu menuLaporan = new itemMenu(iconLaporan, false, null, "Laporan", null, lapKaryawan, laptarifKapal, laptarifLCL,lapPengiriman);
+        itemMenu menuLaporan = new itemMenu(iconLaporan, false, null, "Laporan", null, lapKaryawan, laptarifKapal, laptarifLCL, lapPengiriman);
         itemMenu menuSetting = new itemMenu(iconSetting, false, null, "Pengaturan", null, menuUser, menuRole);
 
         addMenu(menuHome, menuMaster, menuTransaksi, menuLaporan, menuSetting);
