@@ -14,6 +14,10 @@ public class ComboboxValue {
     String value;
     String label;
 
+    public ComboboxValue(){
+        
+    }
+    
     public ComboboxValue(String value, String label) {
         this.value = value;
         this.label = label;
@@ -35,5 +39,8 @@ public class ComboboxValue {
         this.label = label;
     }
     
-    
+    @Override
+    public String toString() {
+        return label; // Menggunakan atribut "value" sebagai representasi String dari objek ComboboxValue
+    }
 }
