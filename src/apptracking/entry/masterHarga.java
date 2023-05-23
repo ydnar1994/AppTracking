@@ -32,8 +32,9 @@ public class masterHarga extends javax.swing.JPanel {
      */
     public masterHarga() {
         initComponents();
-
-        Object[] baris = {"Type", "Jenis", "Tujuan", "PTP", "DTP / PTD", "DTD"};
+        grpTarif.add(rdJawa);
+        grpTarif.add(rdNonJawa);
+        Object[] baris = {"Type", "Jenis", "Tujuan","Tarif", "PTP", "DTP / PTD", "DTD"};
         tabHarga = new DefaultTableModel(null, baris);
 
         doLoadDataTable();
@@ -48,6 +49,7 @@ public class masterHarga extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grpTarif = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         cmbType = new javax.swing.JComboBox();
         cmbJenis = new javax.swing.JComboBox();
@@ -68,6 +70,9 @@ public class masterHarga extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        rdJawa = new javax.swing.JRadioButton();
+        rdNonJawa = new javax.swing.JRadioButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -196,6 +201,20 @@ public class masterHarga extends javax.swing.JPanel {
 
         jLabel9.setText("Rp.");
 
+        jLabel10.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
+        jLabel10.setText("Tarif");
+
+        rdJawa.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
+        rdJawa.setText("Pulau Jawa");
+        rdJawa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdJawaActionPerformed(evt);
+            }
+        });
+
+        rdNonJawa.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
+        rdNonJawa.setText("Non Pulau Jawa");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,35 +230,41 @@ public class masterHarga extends javax.swing.JPanel {
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUlang, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPTP, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDTD, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDTP, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(39, 39, 39)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel10))
+                        .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rdJawa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rdNonJawa))
                             .addComponent(txtTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(cmbType, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbJenis, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPTP, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDTD, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDTP, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                .addComponent(cmbJenis, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,7 +281,12 @@ public class masterHarga extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rdJawa)
+                    .addComponent(rdNonJawa))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPTP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -278,7 +308,7 @@ public class masterHarga extends javax.swing.JPanel {
                     .addComponent(btnUlang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(22, 22, 22))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -486,6 +516,10 @@ public class masterHarga extends javax.swing.JPanel {
         doReset();
     }//GEN-LAST:event_btnUlangActionPerformed
 
+    private void rdJawaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdJawaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdJawaActionPerformed
+
     protected boolean validation() {
         boolean isValid = true;
         if (isValid) {
@@ -511,6 +545,12 @@ public class masterHarga extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Jenis Kendaraan tidak boleh kosong");
                     cmbJenis.requestFocus();
                 }
+            }
+            
+             if (grpTarif.getSelection()==null) {
+                isValid = false;
+                JOptionPane.showMessageDialog(null, "Tarif harus dipilih");
+                rdJawa.requestFocus();
             }
 
             if (txtTujuan.getText() == null) {
@@ -571,7 +611,9 @@ public class masterHarga extends javax.swing.JPanel {
     private javax.swing.JButton btnUlang;
     private javax.swing.JComboBox cmbJenis;
     private javax.swing.JComboBox cmbType;
+    private javax.swing.ButtonGroup grpTarif;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -581,6 +623,8 @@ public class masterHarga extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rdJawa;
+    private javax.swing.JRadioButton rdNonJawa;
     private javax.swing.JTable tblArmada;
     private javax.swing.JTextField txtDTD;
     private javax.swing.JTextField txtDTP;
@@ -613,10 +657,11 @@ public class masterHarga extends javax.swing.JPanel {
                         : hasil.getString("jenis").equalsIgnoreCase("0301") ? "LCT 1000 DWT"
                         : hasil.getString("jenis").equalsIgnoreCase("0302") ? "LCT 1200 DWT" : "LCT 1500 DWT";
                 String tujuan = hasil.getString("tujuan");
+                String flgTarif = hasil.getString("flgtarif")!=null && hasil.getString("flgtarif").equals("1")?"Pulau Jawa":"Non Pulau Jawa";
                 String PTP = hasil.getString("PTP");
                 String DTP = hasil.getString("DTP");
                 String DTD = hasil.getString("DTD");
-                String[] data = {type, jenis, tujuan, PTP, DTP, DTD};
+                String[] data = {type, jenis, tujuan,flgTarif, PTP, DTP, DTD};
                 tabHarga.addRow(data);
             }
         } catch (Exception e) {
@@ -631,6 +676,7 @@ public class masterHarga extends javax.swing.JPanel {
         btnSimpan.setLabel("Simpan");
         cmbType.setSelectedIndex(0);
         cmbJenis.setSelectedIndex(0);
+        grpTarif.clearSelection();
         txtTujuan.setText("");
         txtPTP.setText("");
         txtDTP.setText("");
