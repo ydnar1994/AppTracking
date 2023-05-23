@@ -138,18 +138,18 @@ public class loginpage extends javax.swing.JFrame {
         try {
             txtuserid.requestFocus();
             java.sql.Statement stat = conn.createStatement();
-            ResultSet result=stat.executeQuery ("select * from user where "
-                + "userid='" +txtuserid.getText()+"'");
+            ResultSet result = stat.executeQuery("select * from mst_user where "
+                    + "userid='" + txtuserid.getText() + "'");
             if (result.next()) {
-                if (txtpass.getText().equals(result.getString("password"))){
+                if (txtpass.getText().equals(result.getString("password"))) {
                     //new menuUtama().show();
-                    JOptionPane.showMessageDialog(rootPane, "Selamat Datang  "+txtuserid.getText());
+                    JOptionPane.showMessageDialog(rootPane, "Selamat Datang " + txtuserid.getText());
                     mainMenu mn = new mainMenu();
                     mn.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     mn.setVisible(true);
                     this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane,"Password Salah");
+                    JOptionPane.showMessageDialog(rootPane, "Password Salah");
                     txtpass.setText("");
                     txtuserid.requestFocus();
                 }

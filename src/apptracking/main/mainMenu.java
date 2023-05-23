@@ -4,21 +4,30 @@
  */
 package apptracking.main;
 
+import apptracking.entry.beranda;
 import apptracking.entry.masterArmada;
 import apptracking.entry.masterHarga;
 import apptracking.entry.masterRole;
+import apptracking.entry.masterFaktur;
+import apptracking.entry.masterKirim;
+import apptracking.entry.masterUser;
 import apptracking.funct.koneksi;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.event.MouseInputListener;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -39,23 +48,39 @@ public class mainMenu extends javax.swing.JFrame {
     masterRole mstRole;
     masterArmada mstArmada;
     masterHarga mstHarga;
+    masterKirim mstKirim;
+    masterFaktur mstFaktur;
+    beranda beranda;
+    masterUser mstUser;
 
     public mainMenu() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         execute();
-
-        mstRole = new masterRole();
-        mstArmada = new masterArmada();
-        mstHarga = new masterHarga();
+        
+        beranda     = new beranda();
+        mstUser     = new masterUser();
+        mstRole     = new masterRole();
+        mstArmada   = new masterArmada();
+        mstHarga    = new masterHarga();
+        mstKirim   = new masterKirim();
+        mstFaktur   = new masterFaktur();
         jPMain.setLayout(layout);
+        jPMain.add(beranda, BorderLayout.CENTER);
+        jPMain.add(mstUser, BorderLayout.WEST);
         jPMain.add(mstRole, BorderLayout.WEST);
         jPMain.add(mstArmada, BorderLayout.WEST);
         jPMain.add(mstHarga, BorderLayout.WEST);
+        jPMain.add(mstKirim, BorderLayout.WEST);
+        jPMain.add(mstFaktur, BorderLayout.WEST);
+        beranda.setVisible(true);
+        mstUser.setVisible(false);
         mstRole.setVisible(false);
         mstArmada.setVisible(false);
         mstHarga.setVisible(false);
+        mstKirim.setVisible(false);
+        mstFaktur.setVisible(false);
     }
 
     /**
@@ -77,8 +102,6 @@ public class mainMenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lbl_iconuser = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jPMain = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -126,7 +149,7 @@ public class mainMenu extends javax.swing.JFrame {
             .addGroup(pn_navbarLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(lbl_logout)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(pn_navbar, java.awt.BorderLayout.PAGE_START);
@@ -164,21 +187,11 @@ public class mainMenu extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Reki Yosep Febriana");
+        jLabel2.setText("Kelompok 1");
         jLabel2.setPreferredSize(new java.awt.Dimension(105, 18));
 
         lbl_iconuser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/personuser.png"))); // NOI18N
         lbl_iconuser.setPreferredSize(new java.awt.Dimension(105, 18));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("||");
-        jLabel3.setPreferredSize(new java.awt.Dimension(105, 18));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Admin");
-        jLabel4.setPreferredSize(new java.awt.Dimension(105, 18));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -187,22 +200,16 @@ public class mainMenu extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(lbl_iconuser, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(499, Short.MAX_VALUE))
+                .addContainerGap(582, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_iconuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 2, Short.MAX_VALUE))
         );
 
@@ -280,8 +287,6 @@ public class mainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPMain;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -305,12 +310,21 @@ public class mainMenu extends javax.swing.JFrame {
         ImageIcon iconInvoice = new ImageIcon(getClass().getResource("/image/invoice.png"));
         ImageIcon iconPengiriman = new ImageIcon(getClass().getResource("/image/packet.png"));
 
+        
 //      MENU DATA
         itemMenu masKaryawan = new itemMenu(null, true, iconUser, "Data Karyawan", null);
         itemMenu masArmada = new itemMenu(null, true, iconmasArmada, "Data Armada", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 jPMain.add(mstArmada, BorderLayout.WEST);
+                if (beranda.getParent() != null) {
+                    jPMain.remove(beranda.getParent());
+                    beranda.setVisible(false);
+                }
+                if (mstUser.getParent() != null) {
+                    jPMain.remove(mstUser.getParent());
+                    mstUser.setVisible(false);
+                }
                 if (mstRole.getParent() != null) {
                     jPMain.remove(mstRole.getParent());
                     mstRole.setVisible(false);
@@ -318,6 +332,16 @@ public class mainMenu extends javax.swing.JFrame {
                 if (mstHarga.getParent() != null) {
                     jPMain.remove(mstHarga.getParent());
                     mstHarga.setVisible(false);
+                }
+                
+                if (mstKirim.getParent() != null) {
+                    jPMain.remove(mstKirim.getParent());
+                    mstKirim.setVisible(false);
+                }
+
+                if (mstFaktur.getParent() != null) {
+                    jPMain.remove(mstFaktur.getParent());
+                    mstFaktur.setVisible(false);
                 }
 
                 mstArmada.setVisible(true);
@@ -328,6 +352,14 @@ public class mainMenu extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 jPMain.add(mstHarga, BorderLayout.WEST);
+                if (beranda.getParent() != null) {
+                    jPMain.remove(beranda.getParent());
+                    beranda.setVisible(false);
+                }
+                if (mstUser.getParent() != null) {
+                    jPMain.remove(mstUser.getParent());
+                    mstUser.setVisible(false);
+                }
                 if (mstRole.getParent() != null) {
                     jPMain.remove(mstRole.getParent());
                     mstRole.setVisible(false);
@@ -335,6 +367,16 @@ public class mainMenu extends javax.swing.JFrame {
                 if (mstArmada.getParent() != null) {
                     jPMain.remove(mstArmada.getParent());
                     mstArmada.setVisible(false);
+                }
+                
+                if (mstKirim.getParent() != null) {
+                    jPMain.remove(mstKirim.getParent());
+                    mstKirim.setVisible(false);
+                }
+                
+                if (mstFaktur.getParent() != null) {
+                    jPMain.remove(mstFaktur.getParent());
+                    mstFaktur.setVisible(false);
                 }
 
                 mstHarga.setVisible(true);
@@ -371,15 +413,22 @@ public class mainMenu extends javax.swing.JFrame {
         itemMenu lapPengiriman = new itemMenu(null, true, iconLaporan, "Transaksi Pengiriman", null);
 
 //      MENU TRANSAKSI 
-        itemMenu mnuPengiriman = new itemMenu(null, true, iconPengiriman, "Pengiriman", null);
-        itemMenu mnuInvoice = new itemMenu(null, true, iconInvoice, "Fatkur Pelanggan", null);
-
-        // MENU PENGATURAN
-        itemMenu menuUser = new itemMenu(null, true, iconUser, "Pengguna", null);
-        itemMenu menuRole = new itemMenu(null, true, iconUser, "Jenis Pengguna", new ActionListener() {
+        itemMenu mnuPengiriman = new itemMenu(null, true, iconPengiriman, "Pengiriman",new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jPMain.add(mstRole, BorderLayout.WEST);
+                jPMain.add(mstKirim, BorderLayout.WEST);
+                if (beranda.getParent() != null) {
+                    jPMain.remove(beranda.getParent());
+                    beranda.setVisible(false);
+                }
+                if (mstUser.getParent() != null) {
+                    jPMain.remove(mstUser.getParent());
+                    mstUser.setVisible(false);
+                }
+                if (mstRole.getParent() != null) {
+                    jPMain.remove(mstRole.getParent());
+                    mstRole.setVisible(false);
+                }
                 if (mstArmada.getParent() != null) {
                     jPMain.remove(mstArmada.getParent());
                     mstArmada.setVisible(false);
@@ -388,12 +437,151 @@ public class mainMenu extends javax.swing.JFrame {
                     jPMain.remove(mstHarga.getParent());
                     mstHarga.setVisible(false);
                 }
+                
+                if (mstFaktur.getParent() != null) {
+                    jPMain.remove(mstFaktur.getParent());
+                    mstFaktur.setVisible(false);
+                }
+
+                mstKirim.setVisible(true);
+            }
+        });
+        
+        itemMenu mnuInvoice = new itemMenu(null, true, iconInvoice, "Fatkur Pelanggan", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jPMain.add(mstFaktur, BorderLayout.WEST);
+                if (beranda.getParent() != null) {
+                    jPMain.remove(beranda.getParent());
+                    beranda.setVisible(false);
+                }
+                if (mstUser.getParent() != null) {
+                    jPMain.remove(mstUser.getParent());
+                    mstUser.setVisible(false);
+                }
+                if (mstRole.getParent() != null) {
+                    jPMain.remove(mstRole.getParent());
+                    mstRole.setVisible(false);
+                }
+                if (mstArmada.getParent() != null) {
+                    jPMain.remove(mstArmada.getParent());
+                    mstArmada.setVisible(false);
+                }
+                if (mstHarga.getParent() != null) {
+                    jPMain.remove(mstHarga.getParent());
+                    mstHarga.setVisible(false);
+                }
+                
+                if (mstKirim.getParent() != null) {
+                    jPMain.remove(mstKirim.getParent());
+                    mstKirim.setVisible(false);
+                }
+
+                mstFaktur.setVisible(true);
+            }
+        });
+
+        // MENU PENGATURAN
+        itemMenu menuUser = new itemMenu(null, true, iconUser, "Pengguna", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jPMain.add(mstUser, BorderLayout.WEST);
+                if (beranda.getParent() != null) {
+                    jPMain.remove(beranda.getParent());
+                    beranda.setVisible(false);
+                }
+                if (mstRole.getParent() != null) {
+                    jPMain.remove(mstRole.getParent());
+                    mstRole.setVisible(false);
+                }
+                if (mstArmada.getParent() != null) {
+                    jPMain.remove(mstArmada.getParent());
+                    mstArmada.setVisible(false);
+                }
+                if (mstHarga.getParent() != null) {
+                    jPMain.remove(mstHarga.getParent());
+                    mstHarga.setVisible(false);
+                }
+                if (mstKirim.getParent() != null) {
+                    jPMain.remove(mstKirim.getParent());
+                    mstKirim.setVisible(false);
+                }
+                if (mstFaktur.getParent() != null) {
+                    jPMain.remove(mstFaktur.getParent());
+                    mstFaktur.setVisible(false);
+                }
+
+                mstUser.setVisible(true);
+            }
+        });
+        itemMenu menuRole = new itemMenu(null, true, iconUser, "Jenis Pengguna", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jPMain.add(mstRole, BorderLayout.WEST);
+                if (beranda.getParent() != null) {
+                    jPMain.remove(beranda.getParent());
+                    beranda.setVisible(false);
+                }
+                if (mstUser.getParent() != null) {
+                    jPMain.remove(mstUser.getParent());
+                    mstUser.setVisible(false);
+                }
+                if (mstArmada.getParent() != null) {
+                    jPMain.remove(mstArmada.getParent());
+                    mstArmada.setVisible(false);
+                }
+                if (mstHarga.getParent() != null) {
+                    jPMain.remove(mstHarga.getParent());
+                    mstHarga.setVisible(false);
+                }
+                if (mstKirim.getParent() != null) {
+                    jPMain.remove(mstKirim.getParent());
+                    mstKirim.setVisible(false);
+                }
+                if (mstFaktur.getParent() != null) {
+                    jPMain.remove(mstFaktur.getParent());
+                    mstFaktur.setVisible(false);
+                }
 
                 mstRole.setVisible(true);
             }
         });
 
-        itemMenu menuHome = new itemMenu(iconHome, false, null, "Beranda", null);
+        itemMenu menuHome = new itemMenu(iconHome, false, null, "Beranda", new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jPMain.add(beranda, BorderLayout.CENTER);
+                    if (mstArmada.getParent() != null) {
+                        jPMain.remove(mstArmada.getParent());
+                        mstArmada.setVisible(false);
+                    }
+                    if (mstUser.getParent() != null) {
+                        jPMain.remove(mstUser.getParent());
+                        mstUser.setVisible(false);
+                    }
+                    if (mstRole.getParent() != null) {
+                        jPMain.remove(mstRole.getParent());
+                        mstRole.setVisible(false);
+                    }
+                    if (mstHarga.getParent() != null) {
+                        jPMain.remove(mstHarga.getParent());
+                        mstHarga.setVisible(false);
+                    }
+
+                    if (mstKirim.getParent() != null) {
+                        jPMain.remove(mstKirim.getParent());
+                        mstKirim.setVisible(false);
+                    }
+
+                    if (mstFaktur.getParent() != null) {
+                        jPMain.remove(mstFaktur.getParent());
+                        mstFaktur.setVisible(false);
+                    }
+
+                    beranda.setVisible(true); 
+            }
+        });
         itemMenu menuMaster = new itemMenu(iconMaster, false, null, "Data", null, masKaryawan, masArmada, masHarga);
         itemMenu menuTransaksi = new itemMenu(iconTransaksi, false, null, "Transaksi", null, mnuPengiriman, mnuInvoice);
         itemMenu menuLaporan = new itemMenu(iconLaporan, false, null, "Laporan", null, lapKaryawan, laptarifKapal, laptarifLCL, lapPengiriman);

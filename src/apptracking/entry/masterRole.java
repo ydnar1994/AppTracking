@@ -59,8 +59,12 @@ public class masterRole extends javax.swing.JPanel {
         btnHapus = new javax.swing.JButton();
         btnUlang = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
         jLabel1.setText("Role Id");
 
+        jLabel2.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
         jLabel2.setText("Nama Role");
 
         tblRole.setModel(new javax.swing.table.DefaultTableModel(
@@ -81,6 +85,9 @@ public class masterRole extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblRole);
 
+        btnSimpan.setBackground(new java.awt.Color(56, 86, 35));
+        btnSimpan.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
+        btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
         btnSimpan.setText("Simpan");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +95,9 @@ public class masterRole extends javax.swing.JPanel {
             }
         });
 
+        btnHapus.setBackground(new java.awt.Color(56, 86, 35));
+        btnHapus.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
         btnHapus.setText("Hapus");
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +105,9 @@ public class masterRole extends javax.swing.JPanel {
             }
         });
 
+        btnUlang.setBackground(new java.awt.Color(56, 86, 35));
+        btnUlang.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
+        btnUlang.setForeground(new java.awt.Color(255, 255, 255));
         btnUlang.setText("Ulang");
         btnUlang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +137,7 @@ public class masterRole extends javax.swing.JPanel {
                         .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUlang, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

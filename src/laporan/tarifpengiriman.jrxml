@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a51dd27-2dda-43bf-8832-a3e8fa8739fd">
 	<property name="ireport.zoom" value="1.6105100000000214"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="115"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select tujuan 
 ,sum(case when jenis='0301' then PTP end)as PTP1
@@ -29,8 +29,8 @@ group by tujuan]]>
 	<title>
 		<band height="62" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="6" width="94" height="44" uuid="35678ec8-ce24-4e3e-b3c6-bdf100aedd5e"/>
-				<imageExpression><![CDATA["C:\\Users\\reki.pebriana\\Documents\\NetBeansProjects\\AppTracking\\src\\image\\Logo.png"]]></imageExpression>
+				<reportElement x="0" y="0" width="94" height="44" uuid="35678ec8-ce24-4e3e-b3c6-bdf100aedd5e"/>
+				<imageExpression><![CDATA["C:\\Users\\Randy_Machfud\\Documents\\Kuliah\\App Tracking\\AppTracking\\src\\image\\Logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="79" y="2" width="476" height="20" uuid="29176508-cf00-466d-88c4-c8ef889a5e08"/>
@@ -223,42 +223,42 @@ group by tujuan]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tujuan}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0">
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
 				<reportElement x="122" y="2" width="69" height="11" uuid="8509596f-b85f-4d48-91b0-22f3206ad8a2"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PTP1}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0">
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
 				<reportElement x="192" y="2" width="68" height="11" uuid="d0bad6f8-0226-42ba-b109-37e4f6a7449c"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DTP1}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0">
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
 				<reportElement x="261" y="2" width="68" height="11" uuid="eda9ae93-862d-4ac4-903a-e1f2e8e9d856"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DTD1}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0">
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
 				<reportElement x="405" y="2" width="67" height="11" uuid="9333291f-666f-4f6a-b37d-221ba5e02b1a"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DTP2}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0">
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
 				<reportElement x="476" y="2" width="67" height="11" uuid="dfe0979b-ed14-4cca-b837-b142aea41578"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DTD2}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0">
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
 				<reportElement x="334" y="2" width="65" height="11" uuid="189bd7c0-ac8a-4b46-9bad-521c4d3e371b"/>
 				<textElement>
 					<font size="8"/>
