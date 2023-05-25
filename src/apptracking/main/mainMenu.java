@@ -9,6 +9,7 @@ import apptracking.entry.masterArmada;
 import apptracking.entry.masterHarga;
 import apptracking.entry.masterRole;
 import apptracking.entry.masterFaktur;
+import apptracking.entry.masterKaryawan;
 import apptracking.entry.masterKirim;
 import apptracking.entry.masterUser;
 import apptracking.funct.koneksi;
@@ -28,6 +29,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.MouseInputListener;
+import laporan.lapTransaksi;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -52,6 +54,9 @@ public class mainMenu extends javax.swing.JFrame {
     masterFaktur mstFaktur;
     beranda beranda;
     masterUser mstUser;
+    masterKaryawan mstKaryawan;
+    lapTransaksi lapTrans;
+    
 
     public mainMenu() {
         initComponents();
@@ -66,6 +71,9 @@ public class mainMenu extends javax.swing.JFrame {
         mstHarga    = new masterHarga();
         mstKirim   = new masterKirim();
         mstFaktur   = new masterFaktur();
+        mstKaryawan = new masterKaryawan();
+        lapTrans = new lapTransaksi();
+                
         jPMain.setLayout(layout);
         jPMain.add(beranda, BorderLayout.CENTER);
         jPMain.add(mstUser, BorderLayout.WEST);
@@ -74,6 +82,9 @@ public class mainMenu extends javax.swing.JFrame {
         jPMain.add(mstHarga, BorderLayout.WEST);
         jPMain.add(mstKirim, BorderLayout.WEST);
         jPMain.add(mstFaktur, BorderLayout.WEST);
+        jPMain.add(mstKaryawan, BorderLayout.WEST);
+        jPMain.add(lapTrans, BorderLayout.WEST);
+        
         beranda.setVisible(true);
         mstUser.setVisible(false);
         mstRole.setVisible(false);
@@ -81,6 +92,8 @@ public class mainMenu extends javax.swing.JFrame {
         mstHarga.setVisible(false);
         mstKirim.setVisible(false);
         mstFaktur.setVisible(false);
+        mstKaryawan.setVisible(false);
+        lapTrans.setVisible(false);
     }
 
     /**
@@ -312,7 +325,50 @@ public class mainMenu extends javax.swing.JFrame {
 
         
 //      MENU DATA
-        itemMenu masKaryawan = new itemMenu(null, true, iconUser, "Data Karyawan", null);
+        itemMenu masKaryawan = new itemMenu(null, true, iconUser, "Data Karyawan", new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jPMain.add(mstKaryawan, BorderLayout.WEST);
+                    if (mstArmada.getParent() != null) {
+                        jPMain.remove(mstArmada.getParent());
+                        mstArmada.setVisible(false);
+                    }
+                    if (mstUser.getParent() != null) {
+                        jPMain.remove(mstUser.getParent());
+                        mstUser.setVisible(false);
+                    }
+                    if (mstRole.getParent() != null) {
+                        jPMain.remove(mstRole.getParent());
+                        mstRole.setVisible(false);
+                    }
+                    if (mstHarga.getParent() != null) {
+                        jPMain.remove(mstHarga.getParent());
+                        mstHarga.setVisible(false);
+                    }
+
+                    if (mstKirim.getParent() != null) {
+                        jPMain.remove(mstKirim.getParent());
+                        mstKirim.setVisible(false);
+                    }
+
+                    if (mstFaktur.getParent() != null) {
+                        jPMain.remove(mstFaktur.getParent());
+                        mstFaktur.setVisible(false);
+                    }
+                    
+                    if (beranda.getParent() != null) {
+                        jPMain.remove(beranda.getParent());
+                        beranda.setVisible(false);
+                    }
+
+                    if (lapTrans.getParent() != null) {
+                        jPMain.remove(lapTrans.getParent());
+                        lapTrans.setVisible(false);
+                    }
+                    mstKaryawan.setVisible(true); 
+            }
+        });
         itemMenu masArmada = new itemMenu(null, true, iconmasArmada, "Data Armada", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -343,7 +399,16 @@ public class mainMenu extends javax.swing.JFrame {
                     jPMain.remove(mstFaktur.getParent());
                     mstFaktur.setVisible(false);
                 }
+                
+                if (mstKaryawan.getParent() != null) {
+                    jPMain.remove(mstKaryawan.getParent());
+                    mstKaryawan.setVisible(false);
+                }
 
+                if (lapTrans.getParent() != null) {
+                        jPMain.remove(lapTrans.getParent());
+                        lapTrans.setVisible(false);
+                }
                 mstArmada.setVisible(true);
             }
         });
@@ -378,13 +443,46 @@ public class mainMenu extends javax.swing.JFrame {
                     jPMain.remove(mstFaktur.getParent());
                     mstFaktur.setVisible(false);
                 }
+                
+                if (mstKaryawan.getParent() != null) {
+                    jPMain.remove(mstKaryawan.getParent());
+                    mstKaryawan.setVisible(false);
+                }
+                
+                if (lapTrans.getParent() != null) {
+                        jPMain.remove(lapTrans.getParent());
+                        lapTrans.setVisible(false);
+                }
 
                 mstHarga.setVisible(true);
             }
         });
 
 //      MENU LAPORAN
-        itemMenu lapKaryawan = new itemMenu(null, true, iconLaporan, "Data Karyawan", null);
+        itemMenu lapKaryawan = new itemMenu(null, true, iconLaporan, "Data Karyawan", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String namaFile = "src/laporan/dataKaryawan.jasper";
+                    Connection conn = new koneksi().connect();
+                    HashMap parameter = new HashMap();
+                    parameter.put("REPORT_DIR", getClass().getResource("/image/Logo.png").getPath().replaceAll("%20"," "));
+                    File report_file = new File(namaFile);
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(report_file.getPath());
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
+                    //JasperViewer.viewReport(jasperPrint, false);
+                    // JasperViewer.setDefaultLookAndFeelDecorated(true);
+
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setExtendedState(jasperViewer.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+                    jasperViewer.setVisible(true);
+                } catch (Exception e1) {
+                    System.out.println("Error : "+e1);
+                    JOptionPane.showMessageDialog(null, "Gagal membuka Laporan", "Cetak laporan", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+        });
         itemMenu laptarifKapal = new itemMenu(null, true, iconLaporan, "Tarif Pengiriman Kapal", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -392,7 +490,7 @@ public class mainMenu extends javax.swing.JFrame {
                     String namaFile = "src/laporan/tarifpengiriman.jasper";
                     Connection conn = new koneksi().connect();
                     HashMap parameter = new HashMap();
-
+                    parameter.put("REPORT_DIR", getClass().getResource("/image/Logo.png").getPath().replaceAll("%20"," "));
                     File report_file = new File(namaFile);
                     JasperReport jasperReport = (JasperReport) JRLoader.loadObject(report_file.getPath());
                     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
@@ -409,8 +507,67 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
 
-        itemMenu laptarifLCL = new itemMenu(null, true, iconLaporan, "Tarif Pengiriman LCL", null);
-        itemMenu lapPengiriman = new itemMenu(null, true, iconLaporan, "Transaksi Pengiriman", null);
+        itemMenu laptarifLCL = new itemMenu(null, true, iconLaporan, "Tarif Pengiriman LCL", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String namaFile = "src/laporan/tarifpengiriman_LCL.jasper";
+                    Connection conn = new koneksi().connect();
+                    HashMap parameter = new HashMap();
+                    parameter.put("REPORT_DIR", getClass().getResource("/image/Logo.png").getPath().replaceAll("%20"," "));
+                    File report_file = new File(namaFile);
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(report_file.getPath());
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
+                    //JasperViewer.viewReport(jasperPrint, false);
+                    // JasperViewer.setDefaultLookAndFeelDecorated(true);
+
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setExtendedState(jasperViewer.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+                    jasperViewer.setVisible(true);
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, "Gagal membuka Laporan", "Cetak laporan", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+        });
+        itemMenu lapPengiriman = new itemMenu(null, true, iconLaporan, "Transaksi Pengiriman", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jPMain.add(lapTrans, BorderLayout.CENTER);
+                if (mstArmada.getParent() != null) {
+                    jPMain.remove(mstArmada.getParent());
+                    mstArmada.setVisible(false);
+                }
+                if (mstUser.getParent() != null) {
+                    jPMain.remove(mstUser.getParent());
+                    mstUser.setVisible(false);
+                }
+                if (mstRole.getParent() != null) {
+                    jPMain.remove(mstRole.getParent());
+                    mstRole.setVisible(false);
+                }
+                if (mstHarga.getParent() != null) {
+                    jPMain.remove(mstHarga.getParent());
+                    mstHarga.setVisible(false);
+                }
+
+                if (mstKirim.getParent() != null) {
+                    jPMain.remove(mstKirim.getParent());
+                    mstKirim.setVisible(false);
+                }
+
+                if (mstFaktur.getParent() != null) {
+                    jPMain.remove(mstFaktur.getParent());
+                    mstFaktur.setVisible(false);
+                }
+                if (beranda.getParent() != null) {
+                    jPMain.remove(beranda.getParent());
+                    beranda.setVisible(false);
+                }
+
+                lapTrans.setVisible(true);
+            }
+        });
 
 //      MENU TRANSAKSI 
         itemMenu mnuPengiriman = new itemMenu(null, true, iconPengiriman, "Pengiriman",new ActionListener() {
@@ -441,6 +598,16 @@ public class mainMenu extends javax.swing.JFrame {
                 if (mstFaktur.getParent() != null) {
                     jPMain.remove(mstFaktur.getParent());
                     mstFaktur.setVisible(false);
+                }
+                
+                if (mstKaryawan.getParent() != null) {
+                    jPMain.remove(mstKaryawan.getParent());
+                    mstKaryawan.setVisible(false);
+                }
+                
+                if (lapTrans.getParent() != null) {
+                        jPMain.remove(lapTrans.getParent());
+                        lapTrans.setVisible(false);
                 }
 
                 mstKirim.setVisible(true);
@@ -476,6 +643,16 @@ public class mainMenu extends javax.swing.JFrame {
                     jPMain.remove(mstKirim.getParent());
                     mstKirim.setVisible(false);
                 }
+                
+                if (mstKaryawan.getParent() != null) {
+                    jPMain.remove(mstKaryawan.getParent());
+                    mstKaryawan.setVisible(false);
+                }
+                
+                if (lapTrans.getParent() != null) {
+                        jPMain.remove(lapTrans.getParent());
+                        lapTrans.setVisible(false);
+                    }
 
                 mstFaktur.setVisible(true);
             }
@@ -510,6 +687,16 @@ public class mainMenu extends javax.swing.JFrame {
                     jPMain.remove(mstFaktur.getParent());
                     mstFaktur.setVisible(false);
                 }
+                
+                if (mstKaryawan.getParent() != null) {
+                    jPMain.remove(mstKaryawan.getParent());
+                    mstKaryawan.setVisible(false);
+                }
+                
+                if (lapTrans.getParent() != null) {
+                        jPMain.remove(lapTrans.getParent());
+                        lapTrans.setVisible(false);
+                    }
 
                 mstUser.setVisible(true);
             }
@@ -542,6 +729,16 @@ public class mainMenu extends javax.swing.JFrame {
                     jPMain.remove(mstFaktur.getParent());
                     mstFaktur.setVisible(false);
                 }
+                
+                if (mstKaryawan.getParent() != null) {
+                    jPMain.remove(mstKaryawan.getParent());
+                    mstKaryawan.setVisible(false);
+                }
+                
+                if (lapTrans.getParent() != null) {
+                        jPMain.remove(lapTrans.getParent());
+                        lapTrans.setVisible(false);
+                    }
 
                 mstRole.setVisible(true);
             }
@@ -577,6 +774,16 @@ public class mainMenu extends javax.swing.JFrame {
                     if (mstFaktur.getParent() != null) {
                         jPMain.remove(mstFaktur.getParent());
                         mstFaktur.setVisible(false);
+                    }
+                    
+                    if (mstKaryawan.getParent() != null) {
+                        jPMain.remove(mstKaryawan.getParent());
+                        mstKaryawan.setVisible(false);
+                    }
+                    
+                    if (lapTrans.getParent() != null) {
+                        jPMain.remove(lapTrans.getParent());
+                        lapTrans.setVisible(false);
                     }
 
                     beranda.setVisible(true); 

@@ -160,6 +160,7 @@ public class loginpage extends javax.swing.JFrame {
                 txtuserid.requestFocus();
             }
         } catch (Exception e){
+            System.out.println("Error : "+e);
             JOptionPane.showMessageDialog(rootPane, "Gagal");
         }
     }//GEN-LAST:event_bloginActionPerformed

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1a9fe8a-4931-4173-be4b-14187c736516">
+	<property name="ireport.zoom" value="1.1000000000000052"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="38"/>
+	<parameter name="trx_id" class="java.lang.String"/>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from mst_trx where trxid=$P{trx_id}]]>
+	</queryString>
+	<field name="trxid" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="invoice" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="trxdate" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="spk" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nmplg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tujuan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nmbrg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="volume" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ppn" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totamount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="trxuser" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="subTotalMount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="94" height="39" uuid="4fbd89fd-1d02-4043-bd73-cd407db1fee8"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="39" width="254" height="16" uuid="83d9a946-f424-49c2-a205-f65d5ffba826"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PT.JASATAMA DIRGANTARA EXSPRESS LOGISTIK]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="9" width="63" height="13" uuid="18de8833-c96d-49b1-8621-3a4f73ee3e03"/>
+				<text><![CDATA[Kepada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="50" width="63" height="13" uuid="b62fe110-418e-4e14-8139-5b78bb1e7e9e"/>
+				<text><![CDATA[UP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="9" width="63" height="13" uuid="cc5ea393-b017-4a18-b18c-8c0ee827e6f4"/>
+				<text><![CDATA[Invoice No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="22" width="63" height="13" uuid="d985a4c9-a89e-408d-b995-db51d9dd3a72"/>
+				<text><![CDATA[Tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="35" width="63" height="13" uuid="160face4-759a-4526-b89d-02491600c41e"/>
+				<text><![CDATA[No SPK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="9" width="10" height="13" uuid="5ee95f30-89b1-4622-a72e-70324af51d5d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="50" width="10" height="13" uuid="188326b0-c4f9-4ff4-b6b2-f491c6858c9a"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="9" width="10" height="13" uuid="0e012134-4914-4bfa-8bd4-7e419ce7a723"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="22" width="10" height="13" uuid="5950e63d-0c17-443f-86cd-271e97315081"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="35" width="10" height="13" uuid="2fac627d-a75a-4cd8-bc3b-99c966498163"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="115" y="9" width="187" height="39" uuid="34937d3d-9bb8-4e6b-8ba8-0aefbdb8960f"/>
+				<textFieldExpression><![CDATA[$F{tujuan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="50" width="187" height="13" uuid="c55a08b7-71ee-499c-9357-cca9fe41eee9"/>
+				<textFieldExpression><![CDATA[$F{nmplg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="9" width="141" height="13" uuid="27787bff-d4b5-41e2-8fa0-998be0d11711"/>
+				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="22" width="141" height="13" uuid="b3eaa470-1cea-40d1-9596-68b313979f44"/>
+				<textFieldExpression><![CDATA[$F{trxdate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="35" width="141" height="13" uuid="7c65516a-3f6b-467f-bf5e-7eaf600b88e6"/>
+				<textFieldExpression><![CDATA[$F{spk}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="56" splitType="Stretch">
+			<rectangle>
+				<reportElement x="3" y="5" width="542" height="16" uuid="19e118e5-6fa5-4617-b079-b96182e46011"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="273" y="36" width="131" height="20" uuid="ca9338dc-c8b6-40b3-a01f-5262520b651c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="197" y="36" width="76" height="20" uuid="d61af77a-758a-4ae9-8c17-1fae7835919b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="36" width="194" height="20" uuid="06009d55-76bf-47c3-a059-20178af8caba"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="5" width="555" height="16" uuid="85645119-0865-438d-bb35-8f25752fc2e3"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="38" width="187" height="16" uuid="e585d50c-ddb3-4964-8d84-dd436800ce01"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="38" width="60" height="16" uuid="4d2ddacb-9740-438d-aa69-c35a290d95c0"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Volume]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="38" width="108" height="16" uuid="b63facf1-0ee4-4791-87b7-c7a6a215ee23"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="404" y="36" width="141" height="20" uuid="74123f70-bf2b-4c9a-b827-5ed4f7de23de"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="21" width="542" height="15" uuid="810ff17a-0cd3-4bcc-a607-4bf69bb41a75"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement x="197" y="0" width="76" height="22" uuid="8df43e81-83e4-40ac-9103-ba22ba0a3e33"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="273" y="0" width="131" height="22" uuid="a37b3b23-c8f2-47d9-870d-8b5d3c2539a3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="404" y="0" width="141" height="22" uuid="58607240-d1b4-430a-9263-e07cf85a547f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="0" width="194" height="22" uuid="4a8611f0-d947-4264-b099-4e41e6928019"/>
+			</rectangle>
+			<textField>
+				<reportElement x="7" y="6" width="187" height="14" uuid="e4195ee4-432d-4e76-965e-b0ad4cfc81d2"/>
+				<textFieldExpression><![CDATA[$F{nmbrg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="6" width="41" height="14" uuid="7e9e1319-e036-4a7a-8295-d499b28ba9b0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{volume}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="244" y="6" width="29" height="14" uuid="ecf1efe5-fb41-4c33-ab9e-044b950b4737"/>
+				<text><![CDATA[Ls]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="285" y="6" width="108" height="14" uuid="d25b523a-e57c-4901-aaa5-e072cb5ffeab"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="415" y="6" width="120" height="14" uuid="3fc2d3cc-823d-417a-8a13-b7bc20c9ab8f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="43" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="18" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="204" splitType="Stretch">
+			<rectangle>
+				<reportElement x="3" y="0" width="194" height="15" uuid="679cb93c-a8ad-4c86-87e0-8f959d09b140"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="15" width="194" height="15" uuid="b5750d7e-8912-480e-82c3-8618257493a3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="30" width="194" height="15" uuid="53b137cb-7963-4311-9b4a-249e243718ed"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="0" width="63" height="13" uuid="cebe3892-64c6-477c-9925-d6e89c4f7699"/>
+				<text><![CDATA[Sub Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="15" width="63" height="13" uuid="aad0ad42-3e4b-449f-90ce-33b44204d566"/>
+				<text><![CDATA[PPN 11%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="30" width="63" height="13" uuid="32111d49-3514-475d-b367-46b20f234139"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="197" y="30" width="76" height="15" uuid="08b0e274-a226-41b5-b69b-27acfa36ff1e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="197" y="15" width="76" height="15" uuid="08c42b23-26ad-4ab8-ae6f-3d078aed18e6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="197" y="0" width="76" height="15" uuid="d7607943-f8ee-4312-a373-2d1914839028"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="273" y="0" width="131" height="15" uuid="b18d6152-bf5a-462b-9330-d0486102f14e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="273" y="15" width="131" height="15" uuid="cc7e5172-58b8-4150-bcbf-c4b6dbc463a2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="273" y="30" width="131" height="15" uuid="169dcfc1-9ce2-4d91-8ee7-feda5dc96706"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="404" y="0" width="141" height="15" uuid="0d7382d9-b86e-4df4-b62d-473e227eadc9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="404" y="15" width="141" height="15" uuid="38a2debc-e535-4156-9bee-0fa3ff44d948"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="404" y="30" width="141" height="15" uuid="8ea8c8ce-5404-4f51-af58-7f9dd92ecc2c"/>
+			</rectangle>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="415" y="15" width="120" height="14" uuid="3ee1f08b-da73-4139-96cf-64f742be9c4f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{ppn}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="415" y="30" width="120" height="14" uuid="23245265-fb90-495f-8f50-8e310f2718c3"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{totamount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="416" y="2" width="119" height="13" uuid="2e3c3913-0635-4056-9a4d-ed41cf4ed778"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{subTotalMount}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="3" y="45" width="231" height="77" uuid="5865407f-d720-43df-8a5f-60b11b7cb8ef"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="234" y="45" width="311" height="77" uuid="d6dffad7-586f-491c-b4f2-de0fa483e668"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="122" width="542" height="77" uuid="fea01add-7187-40a6-87e6-5cca750de957"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="19" y="129" width="100" height="14" uuid="051a72fe-6b7f-4136-b245-07ef2f4c41d3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Note :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="34" y="152" width="162" height="14" uuid="198f402c-e5f1-43bc-9dff-98fc186e0ae0"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pembayaran transfer melalui :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="166" width="435" height="14" uuid="cfa5fc99-6f74-466c-9c59-4647b256eb5a"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rek. No. 125 001 362 6759 / Bank Mandiri Cab. Cakung a/n PT. JASATAMA DIRGANTARA EXSPRESS LOGISTIK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="180" width="471" height="14" uuid="37e0a156-13ae-4f94-9500-65be61d9c615"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mohon bukti transfer pembayaran di Fax ke 021-2241-8135 atau di email ke finance@jdxlogistik.co.id]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

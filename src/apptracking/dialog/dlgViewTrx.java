@@ -6,6 +6,7 @@
 
 package apptracking.dialog;
 
+import apptracking.funct.dataCallback;
 import apptracking.funct.koneksi;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,13 +23,22 @@ public class dlgViewTrx extends javax.swing.JFrame {
     private Connection conn= new koneksi().connect();
     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     private String trxId;
+    private dataCallback callback;
+
+    public String getTrxId() {
+        return trxId;
+    }
+
+    public void setTrxId(String trxId) {
+        this.trxId = trxId;
+    }
 
     /**
      * Creates new form dlgViewTrx
      */
-    public dlgViewTrx() {
+    public dlgViewTrx(dataCallback callback) {
         initComponents();
-        
+        this.callback = callback;
         Object[] baris={"Tgl. Kirim","ID Transaksi","Pelanggan","Tujuan","Nama Barang","Invoice","No.SPK","PIC"};
         tabTrx = new DefaultTableModel(null,baris);
         
@@ -176,7 +186,8 @@ public class dlgViewTrx extends javax.swing.JFrame {
             }
 
             trxId = rowData[1];
-            result();
+            callback.onDataReceived(trxId);
+            
             this.dispose();
         }
 
@@ -211,8 +222,9 @@ public class dlgViewTrx extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            private dataCallback dataCallback;
             public void run() {
-                new dlgViewTrx().setVisible(true);
+                new dlgViewTrx(dataCallback).setVisible(true);
             }
         });
     }
@@ -246,15 +258,11 @@ public class dlgViewTrx extends javax.swing.JFrame {
                 String nmBarang=hasil.getString("nmbrg");
                 String pic=hasil.getString("trxuser");
                 String trxId=hasil.getString("trxid");
-                String [] data={tglTrx,namaPel,alamat,nmBarang,invoice,spk,pic,trxId};
+                String [] data={tglTrx,trxId,namaPel,alamat,nmBarang,invoice,spk,pic};
                 tabTrx.addRow(data);
             }
         } catch (Exception e) {
             System.out.println("Menampilkan Data Error "+e);
         }  
-    }
-    
-    public String result(){
-        return trxId;
     }
 }

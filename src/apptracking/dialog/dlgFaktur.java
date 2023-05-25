@@ -7,21 +7,25 @@
 package apptracking.dialog;
 
 import apptracking.funct.ComboboxValue;
+import apptracking.funct.dataCallback;
 import apptracking.funct.functionCollection;
 import apptracking.funct.koneksi;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Date;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Randy_Machfud
  */
-public class dlgFaktur extends javax.swing.JFrame {
+public class dlgFaktur extends javax.swing.JFrame implements dataCallback{
     private Connection conn= new koneksi().connect();
     private functionCollection funct=new functionCollection();
-    private String result="";
+    private String resultData="";
 
     /**
      * Creates new form dlgFaktur
@@ -30,6 +34,7 @@ public class dlgFaktur extends javax.swing.JFrame {
         initComponents();
         doLoadCmbType();
         doLoadTypeTrx();
+        
     }
 
     /**
@@ -367,12 +372,12 @@ public class dlgFaktur extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        dlgViewTrx dlg = new dlgViewTrx();
+        dlgViewTrx dlg = new dlgViewTrx(this);
         dlg.setExtendedState(JFrame.PROPERTIES);
         dlg.setVisible(true);
-        result = dlg.result();
-        System.out.println("result : "+result);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaActionPerformed
@@ -388,11 +393,31 @@ public class dlgFaktur extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTotalActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+        String msg="";
+        if (validation()) {
+            int result = JOptionPane.showConfirmDialog(getParent(), "Yakin data akan di " + msg + " ?", "Konfimasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (result == JOptionPane.YES_OPTION) {
+                
+                try {
+                    String sqlInsert = " insert into mst_faktur "
+                            + "          select trxid, invoice, trxdate, '" + funct.setDateToString(txtTanggal.getDate()) + "' as fakturdate, spk, nmplg, tujuan, nmbrg, volume, amount, ppn, totamount, trxuser \n" +
+                              "          from mst_trx where trxid ='"+resultData+"'";
+                    Statement stat = conn.createStatement();
+                    stat.execute(sqlInsert);
+                    doReset();
+                    JOptionPane.showMessageDialog(null, "Data berhasil di simpan.");
+                } catch (Exception e) {
+                    System.out.println("Gagal Simpan Data Error " + e);
+                    JOptionPane.showMessageDialog(null, "Data gagal di simpan." + e);
+                }
+            } else {
+
+            }
+        }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnUlangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUlangActionPerformed
-        // TODO add your handling code here:
+       doReset();
     }//GEN-LAST:event_btnUlangActionPerformed
 
     private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
@@ -541,5 +566,80 @@ public class dlgFaktur extends javax.swing.JFrame {
         } catch (Exception e) {
              System.out.println("Menampilkan Data Error " + e);
         }
+    }
+
+    @Override
+    public void onDataReceived(String data) {
+        String sql = "select * from mst_trx where trxid='" + data + "'";
+        try {
+            Statement stat = conn.createStatement();
+            ResultSet hasil = stat.executeQuery(sql);
+            System.out.println("||" + sql);
+            while (hasil.next()) {
+                Date tglTrx = hasil.getDate("trxdate");
+                String namaPel = hasil.getString("nmplg");
+                String alamat = hasil.getString("tujuan");
+                String invoice = hasil.getString("invoice");
+                String spk = hasil.getString("spk");
+                String nmBarang = hasil.getString("nmbrg");
+                String pic = hasil.getString("trxuser");
+                String trx = hasil.getString("trxid");
+                resultData = trx;
+                txtPelanggan.setText(namaPel);
+                txtTujuan.setText(alamat);
+                txtPic.setText(pic);
+                txtTanggal.setDate(tglTrx);
+                txtInvoice.setText(invoice);
+                txtNoSPK.setText(spk);
+                txtBarang.setText(nmBarang);
+                //cmbJenis.setSelectedItem("01");
+                txtHarga.setText(hasil.getBigDecimal("amount").toString());
+                txtPPN.setText(String.valueOf(hasil.getBigDecimal("amount").multiply(new BigDecimal(11).divide(new BigDecimal(100)))));
+                txtTotal.setText(String.valueOf(hasil.getBigDecimal("amount").add(hasil.getBigDecimal("amount").multiply(new BigDecimal(11).divide(new BigDecimal(100))))));
+                
+            }
+        } catch (Exception e) {
+            System.out.println("Menampilkan Data Error " + e);
+        }
+    }
+
+    public String getResult() {
+        return resultData;
+    }
+
+    public void setResult(String result) {
+        this.resultData = result;
+    }
+
+    private boolean validation() {
+        boolean isValid = true;
+        if (isValid) {
+            
+            if (txtTujuan.getText() == null) {
+                isValid = false;
+                JOptionPane.showMessageDialog(null, "Tujuan tidak boleh kosong");
+                txtTujuan.requestFocus();
+            } else {
+                if (txtTujuan.getText().equalsIgnoreCase("")) {
+                    isValid = false;
+                    JOptionPane.showMessageDialog(null, "Tujuan tidak boleh kosong");
+                    txtTujuan.requestFocus();
+                }
+            }
+        }
+        return isValid;
+    }
+
+    private void doReset() {
+        txtPelanggan.setText("");
+        txtTujuan.setText("");
+        txtPic.setText("");
+        txtTanggal.setDate(null);
+        txtInvoice.setText("");
+        txtNoSPK.setText("");
+        txtBarang.setText("");
+        txtHarga.setText("");
+        txtPPN.setText("");
+        txtTotal.setText("");
     }
 }

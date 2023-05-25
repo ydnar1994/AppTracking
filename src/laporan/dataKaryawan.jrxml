@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a51dd27-2dda-43bf-8832-a3e8fa8739fd">
+	<property name="ireport.zoom" value="1.1000000000000163"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select id,nama,jabatan,no_telp,no_ktp,alamat, if(jenis_kelamin =1,"Laki-laki","Perempuan") as jenis_kelamin from mst_karyawan]]>
+	</queryString>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jabatan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_telp" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="no_ktp" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="alamat" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jenis_kelamin" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="79" y="2" width="476" height="20" uuid="29176508-cf00-466d-88c4-c8ef889a5e08"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PT. JASATAMA DIRGANTARA EKSPRESS LOGISTIK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="22" width="476" height="14" uuid="b11e7320-11b5-4d0f-8733-957d59b01a73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Central Cakung Business Park, Blok M-19 Jalan Cakung Cilincing KM. 3 Jakarta 14140, Indonesia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="36" width="478" height="14" uuid="76e7064a-9671-4300-8667-38d474b9200e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tel : 021-22418123 | Fax : 021-22418135 | www.jdxlogistik.co.id
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="53" width="555" height="1" uuid="43645f2c-aed9-447b-90d3-f5b03ad16379"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="56" width="555" height="1" uuid="b729cbc0-198f-477b-916e-9b37436e0b9b"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="8" y="6" width="97" height="42" uuid="a5d29d94-6d5b-49cd-896d-fe338d997298"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="6" width="554" height="20" uuid="aeef6ef0-fb30-4661-bd0d-979f994974b5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA KARYAWAN]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<rectangle>
+				<reportElement x="189" y="31" width="51" height="18" backcolor="#99FF99" uuid="ffc3ea64-b34d-48e0-a950-13487f6d04b3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="31" width="66" height="18" backcolor="#99FF99" uuid="d5a26934-e864-4e4e-a24b-f7d7e25f113c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="448" y="31" width="107" height="18" backcolor="#99FF99" uuid="8db5417f-fadf-402d-bfbe-db383bbbd9a1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="377" y="31" width="71" height="18" backcolor="#99FF99" uuid="2230e9c6-4f64-48a1-8992-4494a1275cf0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="306" y="31" width="71" height="18" backcolor="#99FF99" uuid="dc18d7de-ba16-42bf-87d7-8e072fa1c8f5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="7" y="31" width="29" height="18" backcolor="#99FF99" uuid="5a5ea048-b92f-4691-b7e9-b43ef4c4b139"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="36" y="31" width="69" height="18" backcolor="#99FF99" uuid="39fc591f-6e34-40da-a5e8-7cf0a3628b66"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="105" y="31" width="84" height="18" backcolor="#99FF99" uuid="d88d740c-aa51-4a6c-89ff-ce56d3c0fa7b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="33" width="29" height="13" uuid="eab5d7e6-673d-479e-a2ea-e5e694017f0a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="33" width="67" height="13" uuid="94960f9d-234b-4511-8d94-38d95f2e3c6f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="33" width="68" height="14" uuid="274ea004-d9c9-42f5-a910-92cecb8ca2bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[JABATAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="34" width="61" height="14" uuid="bb2e1066-026a-4200-913b-1cafb79b29f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO TELP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="34" width="67" height="14" uuid="86398ffb-ad11-4c7c-82a8-13910fbc8ddb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO KTP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="34" width="67" height="14" uuid="09b596eb-5ed9-405a-b6fc-351f52e44bea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALAMAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="33" width="84" height="14" uuid="e3deb824-43e0-43c3-bdf4-58c864d9081b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="33" width="49" height="14" uuid="c17ba7b6-c92a-4c3a-a7f8-50f6fabe123b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[JKL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="7" y="0" width="29" height="15" uuid="0f4c4a7f-ef5b-4e5f-8d82-e31e02ba419a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="36" y="0" width="69" height="15" uuid="dac27edd-f393-4b2f-ac01-27bdaa80ff00"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="105" y="0" width="84" height="15" uuid="85c5b6c4-4c9e-4bf4-a70d-28a5dbbec8bb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="189" y="0" width="51" height="15" uuid="7354407f-d6bf-4edf-82d4-b7c81d6099cd"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="240" y="0" width="66" height="15" uuid="b5a48b2f-792c-48df-a816-22f963768473"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="306" y="0" width="71" height="15" uuid="613e2ee1-a98a-4939-a183-1fab81ca8268"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="377" y="0" width="71" height="15" uuid="4532d79d-e4a0-4bdc-b763-2afa8168b916"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="448" y="0" width="107" height="15" uuid="081108d8-1439-4b24-bfb1-e9c2253a95fc"/>
+			</rectangle>
+			<textField>
+				<reportElement x="6" y="2" width="27" height="11" uuid="4394c1db-5f4c-4aac-8fa3-93c3b98f22d0"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="38" y="2" width="67" height="11" uuid="03fead2a-f91f-4be5-99d1-ccfe47513af1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="122" y="2" width="69" height="11" uuid="8509596f-b85f-4d48-91b0-22f3206ad8a2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="192" y="2" width="48" height="11" uuid="d0bad6f8-0226-42ba-b109-37e4f6a7449c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jenis_kelamin}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="243" y="2" width="63" height="11" uuid="eda9ae93-862d-4ac4-903a-e1f2e8e9d856"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jabatan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="380" y="2" width="67" height="11" uuid="9333291f-666f-4f6a-b37d-221ba5e02b1a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_ktp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="451" y="2" width="104" height="11" uuid="dfe0979b-ed14-4cca-b837-b142aea41578"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="309" y="2" width="65" height="11" uuid="189bd7c0-ac8a-4b46-9bad-521c4d3e371b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_telp}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="70" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="0" width="44" height="11" uuid="aae2a90d-cdcb-4aec-b208-21c584cf2528"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>

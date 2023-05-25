@@ -7,21 +7,41 @@
 package apptracking.entry;
 
 import apptracking.dialog.dlgFaktur;
+import apptracking.funct.koneksi;
 import apptracking.main.mainMenu;
 import java.awt.Color;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author Randy_Machfud
  */
 public class masterFaktur extends javax.swing.JPanel {
+    private Connection conn= new koneksi().connect();
+    private DefaultTableModel tabFaktur;
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * Creates new form masterTransaksi
      */
     public masterFaktur() {
         initComponents();
+        Object[] baris={"Tgl.Faktur","Tgl.Transaksi","ID Transaksi","Pelanggan","Tujuan","Nama Barang","Invoice","No.SPK","PIC"};
+        tabFaktur = new DefaultTableModel(null,baris);
+        doLoadDataTable();
     }
 
     /**
@@ -39,7 +59,7 @@ public class masterFaktur extends javax.swing.JPanel {
         btnCari = new javax.swing.JButton();
         btnCetak = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblFaktur = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -77,7 +97,7 @@ public class masterFaktur extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblFaktur.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -88,7 +108,7 @@ public class masterFaktur extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblFaktur);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -142,7 +162,25 @@ public class masterFaktur extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCariActionPerformed
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
-        // TODO add your handling code here:
+        try {
+                    String namaFile = "src/laporan/invoice.jasper";
+                    Connection conn = new koneksi().connect();
+                    HashMap parameter = new HashMap();
+                    parameter.put("REPORT_DIR", getClass().getResource("/image/Logo.png").getPath().replaceAll("%20"," "));
+                    File report_file = new File(namaFile);
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(report_file.getPath());
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conn);
+                    //JasperViewer.viewReport(jasperPrint, false);
+                    // JasperViewer.setDefaultLookAndFeelDecorated(true);
+
+                    JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+                    jasperViewer.setExtendedState(jasperViewer.getExtendedState() | javax.swing.JFrame.MAXIMIZED_BOTH);
+                    jasperViewer.setVisible(true);
+                } catch (Exception e1) {
+                    System.out.println("Error : "+e1);
+                    JOptionPane.showMessageDialog(null, "Gagal membuka Laporan", "Cetak laporan", JOptionPane.ERROR_MESSAGE);
+
+                }
     }//GEN-LAST:event_btnCetakActionPerformed
 
 
@@ -152,7 +190,37 @@ public class masterFaktur extends javax.swing.JPanel {
     private javax.swing.JButton btnFaktur;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblFaktur;
     private javax.swing.JTextField txtCari;
     // End of variables declaration//GEN-END:variables
+
+    private void doLoadDataTable() {
+        tblFaktur.revalidate();
+        tblFaktur.repaint();
+        tblFaktur.setModel(tabFaktur);
+        if(tabFaktur.getRowCount()>0){
+            tabFaktur.setRowCount(0);  
+        }
+        String sql = "select * from mst_faktur";
+        try {
+            Statement stat= conn.createStatement();
+            ResultSet hasil=stat.executeQuery(sql);
+            
+            while (hasil.next()) {
+                String tglFaktur=sdf.format(hasil.getDate("fakturdate"));
+                String tglTrx=sdf.format(hasil.getDate("trxdate"));
+                String namaPel=hasil.getString("nmplg");
+                String alamat=hasil.getString("tujuan");
+                String invoice=hasil.getString("invoice");
+                String spk=hasil.getString("spk");
+                String nmBarang=hasil.getString("nmbrg");
+                String pic=hasil.getString("trxuser");
+                String trxId=hasil.getString("trxid");
+                String [] data={tglFaktur,tglTrx,trxId,namaPel,alamat,nmBarang,invoice,spk,pic};
+                tabFaktur.addRow(data);
+            }
+        } catch (Exception e) {
+            System.out.println("Menampilkan Data Error "+e);
+        }  
+    }
 }

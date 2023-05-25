@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a51dd27-2dda-43bf-8832-a3e8fa8739fd">
+	<property name="ireport.zoom" value="1.9487171000000334"/>
+	<property name="ireport.x" value="66"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select tujuan 
+,sum(case when jenis='0101' then DTP end)as EngkelDTP
+,sum(case when jenis='0101' then DTD end)as EngkelDTD
+,sum(case when jenis='0102' then DTP end)as EngkelDobleDTP
+,sum(case when jenis='0102' then DTD end)as EngkelDobleDTD
+,sum(case when jenis='0103' then DTP end)as Tron8DTP
+,sum(case when jenis='0103' then DTD end)as Tron8DTD
+,sum(case when jenis='0104' then DTP end)as Tron9DTP
+,sum(case when jenis='0104' then DTD end)as Tron9DTD
+,sum(case when jenis='0105' then DTP end)as FusoDTP
+,sum(case when jenis='0105' then DTD end)as FusoDTD
+,sum(case when jenis='0301' then DTP end)as LCT1000DTP
+,sum(case when jenis='0301' then DTD end)as LCT1000DTD
+,sum(case when jenis='0302' then DTP end)as LCT1200DTP
+,sum(case when jenis='0302' then DTD end)as LCT1200DTD
+from mst_harga 
+group by tujuan]]>
+	</queryString>
+	<field name="tujuan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EngkelDTP" class="java.math.BigDecimal"/>
+	<field name="EngkelDTD" class="java.math.BigDecimal"/>
+	<field name="EngkelDobleDTP" class="java.math.BigDecimal"/>
+	<field name="EngkelDobleDTD" class="java.math.BigDecimal"/>
+	<field name="Tron8DTP" class="java.math.BigDecimal"/>
+	<field name="Tron8DTD" class="java.math.BigDecimal"/>
+	<field name="Tron9DTP" class="java.math.BigDecimal"/>
+	<field name="Tron9DTD" class="java.math.BigDecimal"/>
+	<field name="FusoDTP" class="java.math.BigDecimal"/>
+	<field name="FusoDTD" class="java.math.BigDecimal"/>
+	<field name="LCT1000DTP" class="java.math.BigDecimal"/>
+	<field name="LCT1000DTD" class="java.math.BigDecimal"/>
+	<field name="LCT1200DTP" class="java.math.BigDecimal"/>
+	<field name="LCT1200DTD" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<image>
+				<reportElement x="65" y="6" width="94" height="44" uuid="35678ec8-ce24-4e3e-b3c6-bdf100aedd5e"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="144" y="2" width="609" height="20" uuid="29176508-cf00-466d-88c4-c8ef889a5e08"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PT. JASATAMA DIRGANTARA EKSPRESS LOGISTIK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="22" width="609" height="14" uuid="b11e7320-11b5-4d0f-8733-957d59b01a73"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Central Cakung Business Park, Blok M-19 Jalan Cakung Cilincing KM. 3 Jakarta 14140, Indonesia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="36" width="611" height="14" uuid="76e7064a-9671-4300-8667-38d474b9200e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tel : 021-22418123 | Fax : 021-22418135 | www.jdxlogistik.co.id
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="65" y="53" width="688" height="1" uuid="43645f2c-aed9-447b-90d3-f5b03ad16379"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="65" y="56" width="688" height="1" uuid="b729cbc0-198f-477b-916e-9b37436e0b9b"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="66" y="6" width="687" height="20" uuid="aeef6ef0-fb30-4661-bd0d-979f994974b5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TARIF PENGIRIMAN LCL]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<rectangle>
+				<reportElement x="673" y="33" width="43" height="16" backcolor="#99FF99" uuid="f9253cf5-d6ef-430f-b5d7-26833b83d09c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="590" y="33" width="43" height="16" backcolor="#99FF99" uuid="19b735f4-6840-493a-9cb4-98f458df525b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="552" y="33" width="41" height="16" backcolor="#99FF99" uuid="926045f2-113a-4c6a-aef5-7e9a9be58b67"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="470" y="33" width="41" height="16" backcolor="#99FF99" uuid="c48221f6-15e8-411e-a83c-bc7dc48552c2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="347" y="15" width="82" height="18" backcolor="#99FF99" uuid="31fc1861-2cfd-499f-b939-680ab0ae7d38"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="224" y="33" width="41" height="16" backcolor="#99FF99" uuid="ffc3ea64-b34d-48e0-a950-13487f6d04b3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="306" y="33" width="41" height="16" backcolor="#99FF99" uuid="2230e9c6-4f64-48a1-8992-4494a1275cf0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="265" y="33" width="41" height="16" backcolor="#99FF99" uuid="dc18d7de-ba16-42bf-87d7-8e072fa1c8f5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="265" y="15" width="82" height="18" backcolor="#99FF99" uuid="4a6f4ee2-a38e-460a-af8c-31f8233c8058"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="183" y="15" width="82" height="18" backcolor="#99FF99" uuid="e8dfec8e-978e-4da4-8a81-d3401ec25498"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="72" y="15" width="29" height="34" backcolor="#99FF99" uuid="5a5ea048-b92f-4691-b7e9-b43ef4c4b139"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="101" y="15" width="82" height="34" backcolor="#99FF99" uuid="39fc591f-6e34-40da-a5e8-7cf0a3628b66"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="183" y="33" width="41" height="16" backcolor="#99FF99" uuid="d88d740c-aa51-4a6c-89ff-ce56d3c0fa7b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="72" y="18" width="29" height="28" uuid="eab5d7e6-673d-479e-a2ea-e5e694017f0a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="18" width="80" height="28" uuid="94960f9d-234b-4511-8d94-38d95f2e3c6f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TUJUAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="17" width="79" height="14" uuid="f20c274b-4de3-4c47-8d01-abb5645b2004"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Engkel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="34" width="31" height="14" uuid="bb2e1066-026a-4200-913b-1cafb79b29f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="34" width="37" height="14" uuid="86398ffb-ad11-4c7c-82a8-13910fbc8ddb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="268" y="17" width="79" height="14" uuid="0d166744-e5d4-45f9-8f8b-33733e011d35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Engkel Double]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="33" width="39" height="14" uuid="e3deb824-43e0-43c3-bdf4-58c864d9081b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="33" width="39" height="14" uuid="c17ba7b6-c92a-4c3a-a7f8-50f6fabe123b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DTD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="388" y="33" width="41" height="16" backcolor="#99FF99" uuid="b1e403ff-0a0f-493c-9a8b-a3ab7431c55f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="392" y="34" width="37" height="14" uuid="8415e709-35f0-4c36-98b7-73aeb414ea1b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DTD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="347" y="33" width="41" height="16" backcolor="#99FF99" uuid="2873e962-cbcd-410a-8947-786915700dc3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="350" y="34" width="31" height="14" uuid="09834a23-f625-4f35-b8e9-af5d427e85bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="17" width="79" height="14" uuid="8c092d17-74c4-441d-a4c7-24a9d393fb86"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tronton 8M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="34" width="37" height="14" uuid="ae261a0b-a05d-491d-aa47-2e639979c301"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DTD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="429" y="15" width="82" height="18" backcolor="#99FF99" uuid="08919078-ed98-41ba-bb1c-53cb455799b0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="429" y="33" width="41" height="16" backcolor="#99FF99" uuid="37d9e3c8-9e57-49a6-95c2-9c2b924a2d8c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="431" y="17" width="79" height="14" uuid="90a02c91-0f99-4183-a55c-2f0f7ca307a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tronton 9.5M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="34" width="31" height="14" uuid="449dd5f6-6694-4e33-a910-8c61083e9f38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="556" y="34" width="37" height="14" uuid="1bcd6ae1-ac4a-4cc5-9f10-2860291bf0c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DTD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="511" y="15" width="82" height="18" backcolor="#99FF99" uuid="80f53a52-2909-4c55-9528-19f5b56c9ca0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="511" y="33" width="41" height="16" backcolor="#99FF99" uuid="995f664a-9d52-4b6b-a81b-ed6ef148a2fd"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="513" y="17" width="80" height="14" uuid="46223b9b-6592-44c3-8319-cb4723e0117d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fuso 6M]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="514" y="34" width="31" height="14" uuid="80a33142-7a89-48f4-8b18-d7e037582328"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PTD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="633" y="33" width="40" height="16" backcolor="#99FF99" uuid="c9103a8f-0f0a-4bc4-9a23-44b0215040c5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="593" y="15" width="80" height="18" backcolor="#99FF99" uuid="e4fee0af-4e92-46a4-880a-15b0f7f35e48"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="635" y="34" width="37" height="14" uuid="80c39555-5c72-42c1-84b5-b46e215f1a8b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="592" y="17" width="79" height="14" uuid="329cb0d1-1e58-412c-bed8-4c4284ebd4ab"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[LCT 1000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="593" y="34" width="31" height="14" uuid="eb7e8979-4c00-4290-b9c4-f327452cff53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PTD]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="715" y="33" width="41" height="16" backcolor="#99FF99" uuid="b36af00a-ff1b-4f8b-b0f7-0f1652f441c3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="673" y="15" width="83" height="18" backcolor="#99FF99" uuid="b38bd449-0d8c-4de9-9deb-727c27382a42"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="718" y="34" width="37" height="14" uuid="f2ebbe75-870e-4db8-8ce6-e0aea5d9d07d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="674" y="17" width="79" height="14" uuid="cb6647f5-40e3-4f30-aa45-3d5ea8b38eb3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[LCT 1200]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="674" y="34" width="31" height="14" uuid="a56e626a-a24d-498a-8aad-c542d9d5907b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PTD]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="673" y="0" width="42" height="15" uuid="b63519c6-95a5-46ed-a72c-60a05401f1aa"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="388" y="0" width="41" height="15" uuid="0d456f61-e6fb-42df-b189-c2101a516a5c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="306" y="0" width="41" height="15" uuid="3b387245-d822-4a4c-b075-f13e81248a42"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="72" y="0" width="29" height="15" uuid="0f4c4a7f-ef5b-4e5f-8d82-e31e02ba419a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="101" y="0" width="82" height="15" uuid="dac27edd-f393-4b2f-ac01-27bdaa80ff00"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="183" y="0" width="41" height="15" uuid="85c5b6c4-4c9e-4bf4-a70d-28a5dbbec8bb"/>
+			</rectangle>
+			<textField>
+				<reportElement x="71" y="2" width="27" height="11" uuid="4394c1db-5f4c-4aac-8fa3-93c3b98f22d0"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="103" y="2" width="80" height="11" uuid="03fead2a-f91f-4be5-99d1-ccfe47513af1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tujuan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="183" y="2" width="39" height="11" uuid="8509596f-b85f-4d48-91b0-22f3206ad8a2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EngkelDTP}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="224" y="0" width="41" height="15" uuid="ea7d4eca-7112-4888-95dd-412788dfdade"/>
+			</rectangle>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="224" y="2" width="39" height="11" uuid="4ba33ebc-14df-4f43-8c8a-9f978613ecf3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EngkelDTD}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="265" y="0" width="41" height="15" uuid="fa2ca79c-e871-4969-abfa-51550f6759af"/>
+			</rectangle>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="265" y="2" width="39" height="11" uuid="09aab12d-4073-4f93-a0f8-8b301bf327fd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EngkelDobleDTP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="306" y="2" width="39" height="11" uuid="3098728a-ffa3-4d5f-9228-519039fe68eb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EngkelDobleDTD}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="347" y="0" width="41" height="15" uuid="14dbcd5e-b007-4671-82b7-2197f924d60a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="470" y="0" width="41" height="15" uuid="56a26202-cf4d-4ae3-98b9-3d127acf3b2e"/>
+			</rectangle>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="470" y="2" width="39" height="11" uuid="7ad520a2-accd-4fef-8921-659f27646e3a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tron9DTD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="347" y="2" width="39" height="11" uuid="555f649e-b6c4-4a41-8de2-277729b8bd14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tron8DTP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="388" y="2" width="39" height="11" uuid="f351d6f7-c063-4e36-91d7-1e417078fa7a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tron8DTD}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="429" y="0" width="41" height="15" uuid="30eaef42-fc86-46d4-bc37-e7a77db2519f"/>
+			</rectangle>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="429" y="2" width="39" height="11" uuid="52e2d53c-4f0c-4372-bda2-706ae2f3e521"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tron9DTP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="674" y="2" width="39" height="11" uuid="3aeb87f9-b08c-40f0-a798-c6896e23bba2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LCT1200DTP}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="633" y="0" width="40" height="15" uuid="4ca07e96-ef52-4cd8-9c16-f30a30c3730f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="551" y="0" width="41" height="15" uuid="74f18cea-f424-4f50-a581-1d97ef2fcc0d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="592" y="0" width="41" height="15" uuid="1c128a22-6277-4f95-9c97-40dc45b156b7"/>
+			</rectangle>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="551" y="2" width="39" height="11" uuid="a98df90d-9982-4cc5-a5e8-a62259c9dc22"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FusoDTD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="592" y="2" width="39" height="11" uuid="14e7605e-a4e4-478f-9f59-14233a0b1f24"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LCT1000DTP}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="715" y="0" width="41" height="15" uuid="50a93286-984f-4542-9e90-4195f8e8cdf6"/>
+			</rectangle>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="633" y="2" width="39" height="11" uuid="35b918cf-a2a2-42bb-8e64-f76a1b56c00d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LCT1000DTD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="715" y="2" width="39" height="11" uuid="8b9b28d5-6a02-4d2a-ab84-a595384ccbe8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LCT1200DTD}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="510" y="0" width="41" height="15" uuid="999f164c-a8d8-478f-831d-881553b54c81"/>
+			</rectangle>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="510" y="2" width="39" height="11" uuid="2f84070a-5967-43c8-bfb3-fa8a7852c5de"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FusoDTP}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="129" splitType="Stretch">
+			<staticText>
+				<reportElement x="72" y="21" width="299" height="94" uuid="bc766093-d1ca-42e1-a520-346fdb6a6857"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Semua tarif diatas adalah dalam Rupiah (Rp) belum termasuk biaya asuransi dan biaya packing
+Harga diatas sudah termasuk biaya LOLO, THC, OPP, OPT
+Perhitungan kubikasi Darat :
+(P x L x T) : 4000 = KG
+Perhitungan kubikasi Laut :
+(P x L x T) : 1.000.000 = KG
+PTP (Port to Port)/ DTD (Door to Door=Barang di jemput) / PTD (Port to Door)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="7" width="299" height="14" uuid="3dc0cdc0-1656-47ed-a6fc-96844f40ff9b"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KETERANGAN :]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="0" width="44" height="11" uuid="aae2a90d-cdcb-4aec-b208-21c584cf2528"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>

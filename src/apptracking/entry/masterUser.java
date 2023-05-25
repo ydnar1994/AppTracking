@@ -14,7 +14,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -71,7 +74,6 @@ public class masterUser extends javax.swing.JPanel {
                 cmbValue.setLabel(hasil.getString("rolenm"));
                 cmbRoleId.addItem(cmbValue);
                 
-                
             }
         } catch (SQLException e) {
             
@@ -108,7 +110,7 @@ public class masterUser extends javax.swing.JPanel {
         try {
             Statement stat= conn.createStatement();
             ResultSet hasil=stat.executeQuery(sql);
-           
+           int count=0;
             while (hasil.next()) {
                 String d ="";
                 ResultSet hasil2 = queryRole(hasil.getString("roleid"));
@@ -121,7 +123,7 @@ public class masterUser extends javax.swing.JPanel {
                 String e = hasil.getString("nohp");
                 String f = hasil.getString("email");
                 String g = sdf.format(hasil.getDate("expired"));
-                
+                String h = hasil.getString("roleid");
                 String [] data={a,b,c,d,e,f,g};
                 tabmode.addRow(data);
             }
@@ -139,7 +141,6 @@ public class masterUser extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jExpired = new org.freixas.jcalendar.JCalendarCombo();
         txtNoHP = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -158,6 +159,7 @@ public class masterUser extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         cmbRoleId = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
+        jExpired = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -275,7 +277,7 @@ public class masterUser extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jExpired, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jExpired, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,17 +307,19 @@ public class masterUser extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jExpired, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jExpired, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan)
                     .addComponent(btnHapus)
                     .addComponent(btnUlang))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -333,17 +337,23 @@ public class masterUser extends javax.swing.JPanel {
         String f = tabmode.getValueAt(bar, 5).toString();
         String g = tabmode.getValueAt(bar, 6).toString();
         try {
-            Date tgl=null;
-            tgl = new SimpleDateFormat("yyyy-MM-dd").parse(g);
+            Date tgl = new SimpleDateFormat("yyyy-MM-dd").parse(g);
+            System.out.println("g:"+tgl);
             jExpired.setDate(tgl);
         } catch (Exception ex) {
             System.out.println(ex);
         }
-
         txtUserID.setText(a);
         txtUsername.setText(b);
         jPassword.setText(c);
-        cmbRoleId.setSelectedItem(d);
+        doLoadCmbRole();
+        for (int i = 0; i < cmbRoleId.getItemCount(); i++) {
+            ComboboxValue item=(ComboboxValue) cmbRoleId.getItemAt(i);
+            if (item.getLabel().equals(d)) {
+                cmbRoleId.setSelectedIndex(i);
+                break;
+            }
+        }
         txtNoHP.setText(e);
         txtEmail.setText(f);
     }//GEN-LAST:event_tblUserMouseClicked
@@ -372,8 +382,8 @@ public class masterUser extends javax.swing.JPanel {
                         stat.setString(1, txtUserID.getText());
                         stat.setString(2, txtUsername.getText());
                         stat.setString(3, jPassword.getText());
-
-                        stat.setString(4, cmbRoleId.getName());
+                        ComboboxValue dataValue=(ComboboxValue)cmbRoleId.getSelectedItem();
+                        stat.setString(4, dataValue.getValue());
                         stat.setString(5, txtNoHP.getText());
                         stat.setString(6, txtEmail.getText());
                         stat.setDate(7, dt);
@@ -391,7 +401,8 @@ public class masterUser extends javax.swing.JPanel {
                     String userid = txtUserID.getText();
                     String usernm = txtUsername.getText();
                     String password = jPassword.getText();
-                    String roleid = cmbRoleId.getName();
+                    ComboboxValue dataValue=(ComboboxValue)cmbRoleId.getSelectedItem();
+                    String roleid = dataValue.getValue();
                     String nohp = txtNoHP.getText();
                     String email = txtEmail.getText();
                     Date expired = jExpired.getDate();
@@ -456,7 +467,7 @@ public class masterUser extends javax.swing.JPanel {
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnUlang;
     private javax.swing.JComboBox cmbRoleId;
-    private org.freixas.jcalendar.JCalendarCombo jExpired;
+    private com.toedter.calendar.JDateChooser jExpired;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
