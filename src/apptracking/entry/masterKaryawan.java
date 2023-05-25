@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class masterKaryawan extends javax.swing.JPanel {
     private DefaultTableModel tabKaryawan;
     private Connection conn= new koneksi().connect();
+    private String idKaryawan;
 
     /**
      * Creates new form masterKaryawan
@@ -47,6 +49,7 @@ public class masterKaryawan extends javax.swing.JPanel {
         btnCari = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKaryawan = new javax.swing.JTable();
+        btnHapus = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -80,7 +83,22 @@ public class masterKaryawan extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKaryawanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblKaryawan);
+
+        btnHapus.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
+        btnHapus.setForeground(new java.awt.Color(56, 86, 35));
+        btnHapus.setText("Hapus");
+        btnHapus.setEnabled(false);
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,14 +107,17 @@ public class masterKaryawan extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCari)))
+                                .addComponent(btnHapus))
+                            .addComponent(btnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -110,7 +131,9 @@ public class masterKaryawan extends javax.swing.JPanel {
                     .addComponent(btnCari, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(txtCari))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -122,6 +145,8 @@ public class masterKaryawan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        btnHapus.setEnabled(false);
+        idKaryawan = "";
         if (txtCari.getText() != null && !txtCari.equals("")) {
             String keyPencarian = txtCari.getText();
 
@@ -157,16 +182,46 @@ public class masterKaryawan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnCariActionPerformed
 
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        int result = JOptionPane.showConfirmDialog(getParent(),"Yakin data akan di hapus ?","Konfimasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(result==JOptionPane.YES_OPTION){
+                try {
+                    String sqlDelete=" delete from mst_karyawan where id = '"+idKaryawan+"' " ;
+                    Statement stat= conn.createStatement();
+                    stat.execute(sqlDelete);
+                    doLoadDataKaryawan();
+                    
+                    //tidakAktif();
+                    JOptionPane.showMessageDialog(null, "Data berhasil di hapus.");
+                    //conn.close();
+                } catch (Exception e) {
+                    System.out.println("Gagal Hapus Data Error "+e);
+                    JOptionPane.showMessageDialog(null, "Data gagal di hapus."+e);
+                }
+            }
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void tblKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKaryawanMouseClicked
+        btnHapus.setEnabled(true);
+        String[] rowData = new String[tabKaryawan.getColumnCount()];
+          for (int col = 0; col < tabKaryawan.getColumnCount(); col++) {
+              rowData[col] = String.valueOf(tabKaryawan.getValueAt(tblKaryawan.rowAtPoint(evt.getPoint()), col));
+          }
+        idKaryawan = rowData[0];
+    }//GEN-LAST:event_tblKaryawanMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambah;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblKaryawan;
     private javax.swing.JTextField txtCari;
     // End of variables declaration//GEN-END:variables
 
-    private void doLoadDataKaryawan() {
+    public void doLoadDataKaryawan() {
+        idKaryawan = "";
         tblKaryawan.revalidate();
         tblKaryawan.repaint();
         tblKaryawan.setModel(tabKaryawan);
