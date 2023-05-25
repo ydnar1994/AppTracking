@@ -229,9 +229,29 @@ public class masterUser extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
         jLabel5.setText("E-mail");
 
+        cmbRoleId.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbRoleIdItemStateChanged(evt);
+            }
+        });
+        cmbRoleId.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cmbRoleIdFocusGained(evt);
+            }
+        });
+        cmbRoleId.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbRoleIdMouseClicked(evt);
+            }
+        });
         cmbRoleId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbRoleIdActionPerformed(evt);
+            }
+        });
+        cmbRoleId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cmbRoleIdKeyReleased(evt);
             }
         });
 
@@ -458,8 +478,24 @@ public class masterUser extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void cmbRoleIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRoleIdActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_cmbRoleIdActionPerformed
+
+    private void cmbRoleIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbRoleIdKeyReleased
+       
+    }//GEN-LAST:event_cmbRoleIdKeyReleased
+
+    private void cmbRoleIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbRoleIdMouseClicked
+        
+    }//GEN-LAST:event_cmbRoleIdMouseClicked
+
+    private void cmbRoleIdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbRoleIdItemStateChanged
+        
+    }//GEN-LAST:event_cmbRoleIdItemStateChanged
+
+    private void cmbRoleIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbRoleIdFocusGained
+       doLoadCmbRole();
+    }//GEN-LAST:event_cmbRoleIdFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

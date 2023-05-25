@@ -373,11 +373,12 @@ public class masterHarga extends javax.swing.JPanel {
                     String PTP=txtPTP.getText();
                     String DTP=txtDTP.getText();
                     String DTD=txtDTD.getText();
+                    Integer tarif=rdJawa.isSelected()?1:2;
                     
                    
                     try {
-                        String sqlInsert = " insert into mst_harga (type,jenis,tujuan,PTP,DTP,DTD,usrcrt,dtcrt) "
-                                + "        values ('" + type + "' , '" + jenis + "', '" + tujuan + "', '" + PTP + "' , '" + DTP + "' , '" + DTD + "' , '" + "test" + "' , '" + funct.setDateToString(new Date()) + "') ";
+                        String sqlInsert = " insert into mst_harga (type,jenis,flgtarif,tujuan,PTP,DTP,DTD,usrcrt,dtcrt) "
+                                + "        values ('" + type + "' , '" + jenis + "'," + tarif + ", '" + tujuan + "', '" + PTP + "' , '" + DTP + "' , '" + DTD + "' , '" + "test" + "' , '" + funct.setDateToString(new Date()) + "') ";
                         Statement stat = conn.createStatement();
                         stat.execute(sqlInsert);
                         doLoadDataTable();
@@ -404,6 +405,7 @@ public class masterHarga extends javax.swing.JPanel {
                     String PTP=txtPTP.getText();
                     String DTP=txtDTP.getText();
                     String DTD=txtDTD.getText();
+                    Integer tarif=rdJawa.isSelected()?1:2;
                     System.out.println("Combo :" + cmbJenis.getSelectedItem().toString().toUpperCase().replaceAll(" ", ""));
                     System.out.println("type New " + type);
                     System.out.println("Jenis New " + jenis);
@@ -414,6 +416,7 @@ public class masterHarga extends javax.swing.JPanel {
                     try {
                         String sqlUpdate = " update mst_harga set type = '" + type + "' ,"
                                 + "                          jenis = '" + jenis + "', "
+                                + "                          flgtarif = " + tarif + ", "
                                 + "                          tujuan = '" + tujuan + "', "
                                 + "                          PTP = '" + PTP + "', "
                                  + "                          DTP = '" + DTP + "', "
@@ -479,9 +482,16 @@ public class masterHarga extends javax.swing.JPanel {
             cmbJenis.setSelectedItem(rowData[1]);
             tujOld=(rowData[2]);
             txtTujuan.setText(rowData[2]);
-            txtPTP.setText(rowData[3]);
-            txtDTP.setText(rowData[4]);
-            txtDTD.setText(rowData[5]);
+            if(((String)rowData[3]).toUpperCase().equals("PULAU JAWA")){
+                rdJawa.setSelected(true);
+                rdNonJawa.setSelected(false);
+            }else{
+                rdJawa.setSelected(false);
+                rdNonJawa.setSelected(true);
+            }
+            txtPTP.setText(rowData[4]);
+            txtDTP.setText(rowData[5]);
+            txtDTD.setText(rowData[6]);
 
             btnSimpan.setLabel("Ubah");
             cmbType.requestFocus();
