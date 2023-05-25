@@ -11,6 +11,7 @@ import apptracking.funct.koneksi;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +34,8 @@ public class masterKirim extends javax.swing.JPanel {
         initComponents();
         Object[] baris={"Tgl.Transaksi","ID Transaksi","Pelanggan","Tujuan","Nama Barang","Invoice","No.SPK","PIC"};
         tabTrx = new DefaultTableModel(null,baris);
+        doLoadCmbType();
+        doLoadTypeTrx();
         doLoadDataTable();
     }
 
@@ -581,5 +584,35 @@ public class masterKirim extends javax.swing.JPanel {
             
         }
         return isValid;
+    }
+
+    private void doLoadCmbType() {
+        cmbType.removeAllItems();
+        try {
+            ResultSet hasil=queryParam("1","");
+            while (hasil.next()) {
+                ComboboxValue cv=new ComboboxValue();
+                cv.setValue(hasil.getString("parmid"));
+                cv.setLabel(hasil.getString("parmnm"));
+                cmbType.addItem(cv);
+            }
+        } catch (Exception e) {
+             System.out.println("Menampilkan Data Error " + e);
+        }
+    }
+
+    private void doLoadTypeTrx() {
+        cmbTrx.removeAllItems();
+        try {
+            ResultSet hasil=queryParam("3","");
+            while (hasil.next()) {
+                ComboboxValue cv=new ComboboxValue();
+                cv.setValue(hasil.getString("parmid"));
+                cv.setLabel(hasil.getString("parmnm"));
+                cmbTrx.addItem(cv);
+            }
+        } catch (Exception e) {
+             System.out.println("Menampilkan Data Error " + e);
+        }
     }
 }
